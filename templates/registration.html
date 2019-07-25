@@ -5,9 +5,9 @@
 </head>
     <body>
         註冊一組帳號
-        <form action = '/registration' method = 'POST'>
+        <form action = {{ url_for('register') }}  method = 'POST'>
             帳號 : <input type = "text" name = "Account"></br>
-            密碼 : <input type = "text" name = "Password"></br>
+            密碼 : <input type = "text" name = "Password"></br></br>
             <input type = "submit" value = "註冊!!">
         </form>
     </body>

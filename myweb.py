@@ -30,5 +30,5 @@ def registration_page():
     return render_template('registration.html')
 
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run()

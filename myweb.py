@@ -9,13 +9,12 @@ def home():
         Person = []
         context,Person = login(request.values['Account'],request.values['Password'])
         if context == '正確!':
-            return redirect(url_for('logined_page',Account = Person[0]))
+            return logined_page(Person[0])
         else:
             return context
 
     return render_template('homepage.html')
 
-@app.route('/<Account>')
 def logined_page(Account):
     list = []
     list = find_account(Account)

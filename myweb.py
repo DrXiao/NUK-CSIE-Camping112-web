@@ -66,7 +66,7 @@ def registration_page():
 @app.route('/QRscan')
 def qrcode_scan():
     Data = detect()
-    return render_template('person_page.html',Name = '1', Account = '', Password = '',QRCODE = Data)
+    return render_template('person_page.html',Name = '', Account = '', Password = '',QRCODE = Data)
 
 
 # 當__name__ 等於 '__main__'時，運作該網站

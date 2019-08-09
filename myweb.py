@@ -42,11 +42,6 @@ def registration_page():
     return render_template('registration.html')
 
 
-@app.route('/QRscan')
-def QRcode_Scan():
-    text = detect()
-    return render_template('person_page.html',Name = member.Name, Account = member.Account, Password = member.Password,QRCODE = text)
-
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
     #app.debug = True

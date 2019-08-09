@@ -39,7 +39,3 @@ def detect():
     camera.release()
     cv2.destroyAllWindows()
     return Data
- 
- 
-if __name__ == '__main__':
-    detect()

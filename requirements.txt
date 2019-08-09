@@ -5,3 +5,4 @@ gunicorn
 cv2
 pyzbar
 Pillow
+qrcode

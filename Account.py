@@ -33,15 +33,6 @@ def login(account,password):
                 return 'Error! 你的密碼輸入錯誤!',None
     return '你沒有帳號喔~ 快去註冊',None
 
-
-#找到帳號資訊的函式，回傳一個帳號的所有資訊的陣列-->輔助myweb的 logined_page() 函式
-def find_account(account):
-    list = []
-    list = sql.get_table_SQL()
-    for i in range(len(list)):
-        if account == list[i][0]:
-            return list[i]
-
 #註冊帳號的函式
 def register_new_account(Name,Account,Password):
     sql.insert_table_SQL(Account,Password,Name)

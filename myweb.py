@@ -1,11 +1,14 @@
 #flask套件匯入類別、方法
 from flask import Flask,render_template,request,url_for,redirect
 
+from QRscanner import detect
 #自定義的套件，匯入三個函式
-from Account import login,find_account,register_new_account
+from Account import login,register_new_account
 
 # __name__ 目前執行的模組
 app = Flask(__name__)
+
+Person = []
 
 #裝飾器，app.route()，決定一個「路由」要做什麼事情
 """
@@ -37,21 +40,13 @@ Person[i][0]，表示第i個人的帳號
 @app.route('/',methods = ['GET','POST'])
 def home():
     if request.method == 'POST':
-        Person = []
         context,Person = login(request.values['Account'],request.values['Password'])
         if context == '正確!':
-            return logined_page(Person[0])
+            return render_template('person_page.html',Name = Person[2], Account = Person[0], Password = Person[1],QRCODE = '')
         else:
             return context
 
     return render_template('homepage.html')
-
-#用函式決定return的個人網頁頁面，輔助app.route('/')的函式
-def logined_page(Account):
-    list = []
-    list = find_account(Account)
-    return render_template('person_page.html',Name = list[2], Account = list[0], Password = list[1])
-
 
 
 """
@@ -68,9 +63,13 @@ def registration_page():
 
     return render_template('registration.html')
 
+@app.route('/QRscan')
+def qrcode_scan():
+    Data = detect()
+    return render_template('person_page.html',Name = '', Account = '', Password = '',QRCODE = Data)
 
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    #app.debug = True
+    app.debug = True
     app.run()

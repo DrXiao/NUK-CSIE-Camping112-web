@@ -4,8 +4,6 @@ from flask import Flask,render_template,request,url_for,redirect
 #自定義的套件，匯入三個函式
 from Account import login,register_new_account,Member
 
-from QRscan_method import detect
-
 # __name__ 目前執行的模組
 app = Flask(__name__)
 

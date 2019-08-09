@@ -22,7 +22,7 @@ list是陣列，在sql (SQL_method) 模組的 get_table_SQL方法得到二維陣
 """
 def login(account,password):
     if account == '' or password == '':
-        return '帳號或密碼為空!',None
+        return '帳號或密碼為空!',[]
     list = []
     list = sql.get_table_SQL()
     for i in range(len(list)):
@@ -30,8 +30,8 @@ def login(account,password):
             if password == list[i][1]:
                 return '正確!',list[i]
             else:
-                return 'Error! 你的密碼輸入錯誤!',None
-    return '你沒有帳號喔~ 快去註冊',None
+                return 'Error! 你的密碼輸入錯誤!',[]
+    return '你沒有帳號喔~ 快去註冊',[]
 
 #註冊帳號的函式
 def register_new_account(Name,Account,Password):

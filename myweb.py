@@ -3,7 +3,7 @@ from flask import Flask,render_template,request,url_for,redirect,Response
 
 #自定義的套件，匯入三個函式
 from Account import login,register_new_account,Member
-import pyzbar.pyzbar
+import pyzbar
 
 # __name__ 目前執行的模組
 app = Flask(__name__)

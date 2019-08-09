@@ -6,4 +6,3 @@ pyzbar
 Pillow
 qrcode
 opencv-python
-cv2

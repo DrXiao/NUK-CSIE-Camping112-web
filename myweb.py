@@ -1,7 +1,6 @@
 #flask套件匯入類別、方法
 from flask import Flask,render_template,request,url_for,redirect
 
-from QRscanner import detect
 #自定義的套件，匯入三個函式
 from Account import login,register_new_account
 
@@ -63,10 +62,6 @@ def registration_page():
 
     return render_template('registration.html')
 
-@app.route('/QRscan')
-def qrcode_scan():
-    Data = detect()
-    return Data
 
 
 # 當__name__ 等於 '__main__'時，運作該網站

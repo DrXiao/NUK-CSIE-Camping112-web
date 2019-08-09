@@ -2,7 +2,6 @@ Flask
 Flask-SQLAlchemy
 psycopg2
 gunicorn
-cv2
 pyzbar
 Pillow
 qrcode

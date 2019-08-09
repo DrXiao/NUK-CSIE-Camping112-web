@@ -3,8 +3,8 @@ from flask import Flask,render_template,request,url_for,redirect,Response
 
 #自定義的套件，匯入三個函式
 from Account import login,register_new_account,Member
-#import cv2
-import pyzbar
+import cv2
+#import pyzbar
 
 app = Flask(__name__)
 

@@ -6,5 +6,4 @@ pyzbar
 Pillow
 qrcode
 opencv-python
-numpy
 camera

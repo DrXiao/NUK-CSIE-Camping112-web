@@ -36,16 +36,9 @@ def registration_page():
 
     return render_template('registration.html')
 
-@app.route('/Opencv')
-def openCV():
-    text  = ''
-    try:
-        import cv2
-        text = 'Yes'
-    except:
-        text = 'No'
-    text = text + '訊息'
-    return text
+@app.route('/QRscan')
+def QRdetect():
+    return render_template('instascan-master/docs/index.html')
 
 
 # 當__name__ 等於 '__main__'時，運作該網站

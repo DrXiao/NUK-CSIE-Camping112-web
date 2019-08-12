@@ -40,7 +40,7 @@ def registration_page():
 def openCV():
     text  = ''
     try:
-        import opencv
+        import cv2
         text = 'Yes'
     except:
         text = 'No'

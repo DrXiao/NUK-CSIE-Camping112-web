@@ -44,6 +44,7 @@ def openCV():
         text = 'Yes'
     except:
         text = 'No'
+    text = text + '訊息'
     return text
 
 

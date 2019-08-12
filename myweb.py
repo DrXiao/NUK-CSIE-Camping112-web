@@ -2,22 +2,16 @@
 from flask import Flask,render_template,request,url_for,redirect,Response
 
 #自定義的套件，匯入三個函式
-from Account import login,register_new_account,Member
+from Account import Member
 app = Flask(__name__)
 
 member = Member('','','')
- 
 
 #裝飾器，app.route()，決定一個「路由」要做什麼事情
 @app.route('/',methods = ['GET','POST'])
 def home():
     if request.method == 'POST':
-        context,Person = login(request.values['Account'],request.values['Password'])
-        if context == '正確!':
-            member.change(Person[0],Person[1],Person[2])
-            return render_template('person_page.html',Name = member.Name, Account = member.Account, Password = member.Password,QRCODE = '')
-        else:
-            return context
+        pass
 
     return render_template('homepage.html')
 
@@ -31,17 +25,15 @@ def home():
 @app.route('/registration',methods = ['GET','POST'])
 def registration_page():
     if request.method == 'POST':
-        register_new_account(request.values['Name'],request.values['Account'],request.values['Password'])
-        return '註冊成功!'
-
+        pass
     return render_template('registration.html')
 
 @app.route('/QRscan')
-def QRdetect():
-    return render_template('instascan-master/docs/index.html')
+def QRcode_scan():
+    return render_template('QRscanner.html')
 
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    #app.debug = True
+    app.debug = True
     app.run()

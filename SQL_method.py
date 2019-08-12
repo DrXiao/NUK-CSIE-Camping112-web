@@ -25,20 +25,6 @@ conn.close()
 利用這6行，加上自己的Python code，實現有關於資料庫的操作
 """
 
-
-"""
-create_table_SQL()    :   創建表格函式
-只需執行一次，就可以在資料庫建立「一種表格」，不能重複建立相同種類的表格，否則會出錯
-
-現在我已經建立一種表格叫做 Member，放在一個public的地方(呃...應該是這個意思)，內容是
-account(帳號)，長度32個字元，不能為空，是一個鍵值(就是只能有一個這個帳號的意思)
-password(密碼)，長度32個字元，不能為空
-name(名字)，長度32個字元，不能為空
-
-利用execute內加入SQL語法的字串，建立表格
-
-建立成功後，就在終端機print出 'public table is created'，才知道有沒有建立成功
-"""
 def create_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()

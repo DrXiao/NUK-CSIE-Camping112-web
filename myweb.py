@@ -44,7 +44,7 @@ def openCV():
         text = 'Yes'
     except:
         text = 'No'
-    return '訊息 : '+text
+    return text
 
 
 # 當__name__ 等於 '__main__'時，運作該網站

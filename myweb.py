@@ -40,7 +40,7 @@ def registration_page():
 def openCV():
     text  = ''
     try:
-        import cv2
+        import opencv
         text = 'Yes'
     except:
         text = 'No'
@@ -49,5 +49,5 @@ def openCV():
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run()

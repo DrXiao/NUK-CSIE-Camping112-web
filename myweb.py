@@ -28,12 +28,14 @@ def registration_page():
         pass
     return render_template('registration.html')
 
-@app.route('/QRscan')
+@app.route('/QRscan',methods =['GET','POST'] )
 def QRcode_scan():
+    if request.method == 'POST':
+        return request.values['QRcode']
     return render_template('QRscanner.html')
 
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    #app.debug = True
+    app.debug = True
     app.run()

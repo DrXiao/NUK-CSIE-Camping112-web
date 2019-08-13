@@ -1,69 +1,79 @@
 <html>
-  <head>
-    <title>QRcode scanner</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-    <style>
-    #app {
-      background: #263238;
-      display: flex;
-      align-items: stretch;
-      justify-content: stretch;
-      height: 100%;
-    }
-    .preview-container {
+
+<head>
+  <title>QRcode scanner</title>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+</head>
+<style>
+
+  #app {
+    background: #263238;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    height: 100%;
+  }
+
+  .preview-container {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     display: flex;
     width: 100%;
     overflow: hidden;
-    }
-    </style>
-  </head>
-  <body>
-    <div id = "app">
-      <div class = "preview-container">
-      <video id="preview"></video>
-      </div>
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+</style>
+
+<body>
+  <div id = "app">
+    <div class = "preview-container">
+    <video id="preview"></video>
+    </div>
     <!-- 詢問是否允許開啟相機後，會顯示在這個元素裡 -->
     <!-- ---------- -->
     <!-- 以下程式面 -->
     <script type="text/javascript">
-    let scanner = new Instascan.Scanner({
+      let scanner = new Instascan.Scanner({
         video: document.getElementById('preview')
-    });
-    // 開啟一個新的掃描
-    // 宣告變數scanner，在html<video>標籤id為preview的地方開啟相機預覽。
-    // Notice:這邊注意一定要用<video>的標籤才能使用，詳情請看他的github API的部分解釋。
+      });
+      // 開啟一個新的掃描
+      // 宣告變數scanner，在html<video>標籤id為preview的地方開啟相機預覽。
+      // Notice:這邊注意一定要用<video>的標籤才能使用，詳情請看他的github API的部分解釋。
 
-    scanner.addListener('scan', function(content) {
+      scanner.addListener('scan', function (content) {
         console.log(content);
         document.getElementById('QRcodeInfo').value = content
         document.getElementById('QRscan').submit();
-    });
-    //開始偵聽掃描事件，若有偵聽到印出內容。
+      });
+      //開始偵聽掃描事件，若有偵聽到印出內容。
 
-    Instascan.Camera.getCameras().then(function(cameras) {
-    //取得設備的相機數目
+      Instascan.Camera.getCameras().then(function (cameras) {
+        //取得設備的相機數目
         if (cameras.length > 0) {
           ///若設備相機數目大於0 則先開啟第0個相機(程式的世界是從第零個開始的)
-            scanner.start(cameras[1]);
+          scanner.start(cameras[1]);
         } else {
           //若設備沒有相機數量則顯示"No cameras found";
           //這裡自行判斷要寫什麼
-            console.error('No cameras found.');
+          console.error('No cameras found.');
         }
-    }).catch(function(e) {
+      }).catch(function (e) {
         console.error(e);
-    });
+      });
     </script>
   </div>
-   <div>
-    <form id = 'QRscan' action = '/QRscan' method = 'POST'>
-      <input type = 'hidden' id = 'QRcodeInfo' value = '' name = 'QRcode'>
+  <div>
+    <form id='QRscan' action='/QRscan' method='POST'>
+      <input type='hidden' id='QRcodeInfo' value='' name='QRcode'>
     </form>
-    </div>  
-  </body>
+  </div>
+</body>
+
 </html>

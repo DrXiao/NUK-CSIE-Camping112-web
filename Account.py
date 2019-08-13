@@ -3,15 +3,16 @@
 import SQL_method as sql
 
 class Member:
+    Name = ''
     Account = ''
     Password = ''
-    Name = ''
-    def __init__(self,Account,Password,Name):
+    team = ''
+    def __init__(self,Name,Account,Password,team):
+        self.Name = Name
         self.Account = Account
         self.Password = Password
-        self.Name = Name
-    def change(self,Account,Password,Name):
-        self.Account = Account
-        self.Password = Password
-        self.Name = Name
+        self.team = team
+
+class Team:
+    score= ''
 

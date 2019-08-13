@@ -5,7 +5,7 @@ from flask import Flask,render_template,request,url_for,redirect,Response
 from Account import Member
 app = Flask(__name__)
 
-member = Member('','','')
+member = Member('','','','')
 
 #裝飾器，app.route()，決定一個「路由」要做什麼事情
 @app.route('/',methods = ['GET','POST'])

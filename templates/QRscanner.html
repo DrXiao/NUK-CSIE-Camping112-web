@@ -8,6 +8,13 @@
   <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 <style>
+  body,
+  html {
+    padding: 0;
+    margin: 0;
+    font-family: 'Helvetica Neue', 'Calibri', Arial, sans-serif;
+    height: 100%;
+  }
 
   #app {
     background: #263238;
@@ -22,20 +29,20 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    width: 100%;
     overflow: hidden;
     -moz-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);
     -o-transform: scaleX(-1);
     transform: scaleX(-1);
-    margin:5px;
+    width:100vw;
+    height:100vh;
   }
 </style>
 
 <body>
-  <div id = "app">
-    <div class = "preview-container">
-    <video id="preview"></video>
+  <div id="app">
+    <div class="preview-container">
+      <video id="preview" style = "width:100vw;height:100vh"></video>
     </div>
     <!-- 詢問是否允許開啟相機後，會顯示在這個元素裡 -->
     <!-- ---------- -->
@@ -59,8 +66,7 @@
         //取得設備的相機數目
         if (cameras.length > 0) {
           ///若設備相機數目大於0 則先開啟第0個相機(程式的世界是從第零個開始的)
-
-            scanner.start(cameras[1]);
+          scanner.start(cameras[0]);
         } else {
           //若設備沒有相機數量則顯示"No cameras found";
           //這裡自行判斷要寫什麼

@@ -4,12 +4,29 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <style>
+    #app {
+      background: #263238;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      height: 100%;
+    }
+    .preview-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    }
+    </style>
   </head>
   <body>
-    <video id="preview"></video>
-    <form id = 'QRscan' action = '/QRscan' method = 'POST'>
-      <input type = 'text' id = 'QRcodeInfo' value = '' name = 'QRcode'>
-    </form>
+    <div id = "app">
+      <div class = "preview-container">
+      <video id="preview"></video>
+      </div>
     <!-- 詢問是否允許開啟相機後，會顯示在這個元素裡 -->
     <!-- ---------- -->
     <!-- 以下程式面 -->
@@ -42,5 +59,11 @@
         console.error(e);
     });
     </script>
+  </div>
+   <div>
+    <form id = 'QRscan' action = '/QRscan' method = 'POST'>
+      <input type = 'hidden' id = 'QRcodeInfo' value = '' name = 'QRcode'>
+    </form>
+    </div>  
   </body>
 </html>

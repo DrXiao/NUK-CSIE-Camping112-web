@@ -24,14 +24,60 @@ conn.close()
 
 利用這6行，加上自己的Python code，實現有關於資料庫的操作
 """
+def create_team_table_SQL():
+    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    cur = conn.cursor()
+    cur.execute('''create table public.Team(
+    teamname    varchar(32) not null primary key,
+    score       varchar(32) not null
+    )'''
+    )
+    print('public table is created')
+    conn.commit()
+    cur.close()
+    conn.close()
 
-def create_table_SQL():
+def insert_team_table_SQL(team):
+    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    cur = conn.cursor()
+    cur.execute("insert into public.Team(teamname,score)values('%s','%s')"%(team.TeamName,team.Score))
+    print('New team is created')
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def print_team_table_SQL():
+    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Team")
+    rows = []
+    rows = cur.fetchall()
+    for i in range(len(rows)):
+        print(rows[i])
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def get_team_table_SQL():
+    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM team")
+    rows = []
+    rows = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return rows
+    
+
+def create_member_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute('''create table public.Member(
+    name    varchar(32) not null,
     account varchar(32) not null primary key,
     password varchar(32) not null,
-    name    varchar(32) not null)'''
+    teamname    varchar(32) not null)'''
     )
     print('public table is created')
     conn.commit()
@@ -45,10 +91,10 @@ insert_table_SQL()      :   新增資料函式(新增帳號)
 
 在終端機print出 'New user is created' ，知道有沒有新建成功
 """
-def insert_table_SQL(account,password,name):
+def insert_member_table_SQL(Member):
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
-    cur.execute("insert into public.Member(account,password,name)values('%s','%s','%s')"%(account,password,name))
+    cur.execute("insert into public.Member(name,account,password,teamname)values('%s','%s','%s','%s')"%(Member.Name,Member.Account,Member.Password,Member.team))
     print('New user is created')
     conn.commit()
     cur.close()
@@ -62,7 +108,7 @@ print_table_SQL()       :   顯示資料函式
 利用SQL語法  "SELECT * FROM member"，取得有關member的所有資料
 讓rows 陣列去接住這些資料( rows = cur.fetchall() )，並一行一行print出來(for迴圈)
 """
-def print_table_SQL():
+def print_member_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute("SELECT * FROM member")
@@ -82,7 +128,7 @@ code 與  print_table_SQL()  大同小異
 -->回傳資料二維陣列
 """
 
-def get_table_SQL():
+def get_member_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute("SELECT * FROM member")

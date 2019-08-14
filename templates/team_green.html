@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>青龍隊</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/team_green.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="team_name">
+            <h1>青龍</h1>
+        </div>
+        <input type="checkbox" id="chk">
+        <div class="menu_btn">
+            <label for="chk" class="show_menu_btn">
+                <i class="fas fa-bars"></i>
+            </label>
+
+            <!-- <img src="/mypage/svg/bars.svg" alt="menu"> -->
+        </div>
+
+        <ul class="menu">
+			<label for="chk" class="hide_menu_btn">
+                <i class="fas fa-times"></i>
+            </label>
+            <a href="index.html">你的資訊</a>
+            <a href="{{url_for('QRcode_scan')}}">打開相機</a>
+            <a href="trade.html">金幣交易</a>
+            
+        </ul>
+    </div>
+    <div style = "text-align: center">
+        你好! {{team}}-{{Name}}</br>
+        你的帳號 : {{Account}}</br>
+        目前小組積分 : {{Score}}</br>
+    </div>
+</body>
+
+</html>

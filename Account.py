@@ -1,6 +1,7 @@
 #自定義模組SQL_method，是操作資料庫的模組
 #匯入SQL_method，並在此簡寫為sql
 import SQL_method as sql
+import copy
 
 member = []
 team = []
@@ -34,7 +35,7 @@ class Team:
 def login(account,password):
     if account == None or password == None:
         return '帳號或密碼為空',False
-
+    member = sql.get_member_table_SQL()
     for i in range(len(member)):
         if member[i][1] == account:
             if member[i][2] == password:
@@ -60,19 +61,18 @@ def register(Name,Account,Password,team_password):
         return '名字、帳號、密碼有一個是空的!'
     else:
         sql.insert_member_table_SQL(new_member)
-        member = sql.get_member_table_SQL()
         print('新帳號註冊成功')
         return True
 
 
 
-member = sql.get_member_table_SQL()
 team = sql.get_team_table_SQL()
 
 Dargon_team = Team(team[0][0],team[0][1])
 Tiger_team = Team(team[1][0],team[1][1])
 Phoenix_team = Team(team[2][0],team[2][1])
 Tortoise_Team = Team(team[3][0],team[3][1])
+
 #sql.create_team_table_SQL()
 #team = Team('青龍',0)
 #sql.insert_team_table_SQL(team)

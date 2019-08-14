@@ -32,10 +32,11 @@ def home():
 def registration_page():
     if request.method == 'POST':
         flag = register(request.values['Name'],request.values['Account'],request.values['Password'],request.values['Teampassword'])
-        if flag != True:
-            return flag
+        print(flag)
+        if flag == True:
+            return redirect(url_for('home'))
         else:
-            redirect(url_for('home'))
+            return flag
     return render_template('registration.html')
 
 @app.route('/QRscan',methods =['GET','POST'] )

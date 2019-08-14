@@ -12,8 +12,6 @@
   WeArePhoenixTeam : 朱雀小隊
   GoToTortoiseTeam : 玄武小隊
 
-
-
 前端架設情況
 未知? 
 跪求前端組 松林 ㄏㄏ 告知

@@ -3,9 +3,10 @@
 import SQL_method as sql
 import copy
 
-member = []
+# team陣列，會接收資料庫的 team 表格(可視作二維陣列)
 team = []
 
+# Member 類別，一個同學的資訊
 class Member:
     Name = ''
     Account = ''
@@ -22,17 +23,23 @@ class Member:
         self.Password = Password
         self.team = team
 
+# Team 類別，一個小隊的資訊
 class Team:
     TeamName = ''
     Score= ''
     def __init__(self,TeamName,Score):
         self.TeamName = TeamName
         self.Score = Score
-    def renew(self,TeamName,Score):
-        self.TeamName = TeamName
-        self.Score = Score
 
+"""
+login函式
+由帳號密碼判斷登入成不成功，
+若失敗就回傳        字串,Flase
+
+成功就回傳一個      Member類別的變數,True
+"""
 def login(account,password):
+    member = []
     if account == None or password == None:
         return '帳號或密碼為空',False
     member = sql.get_member_table_SQL()
@@ -45,6 +52,8 @@ def login(account,password):
                 return '密碼錯誤!',False
     return '沒有註冊帳號!',False
 
+
+#register，註冊函式，註冊成功就加入資料庫並回傳True值，否則會回傳錯誤訊息字串
 def register(Name,Account,Password,team_password):
     new_member = Member('','','','')
     if team_password == 'IamDargonTeam':
@@ -65,9 +74,11 @@ def register(Name,Account,Password,team_password):
         return True
 
 
-
+# team 陣列得到二維陣列，為所有小隊的小隊名稱、小隊分數
 team = sql.get_team_table_SQL()
 
+
+# 四個小隊的類別變數，因為分數是有共通性的，所有同學看到的分數都是從這四個類別變數的 Score 變數看到
 Dargon_team = Team(team[0][0],team[0][1])
 Tiger_team = Team(team[1][0],team[1][1])
 Phoenix_team = Team(team[2][0],team[2][1])

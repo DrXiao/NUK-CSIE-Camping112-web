@@ -24,6 +24,8 @@ conn.close()
 
 利用這6行，加上自己的Python code，實現有關於資料庫的操作
 """
+
+# 建立"一種"新的表格 Team，包含 小隊名稱、分數，此函式只需執行一次
 def create_team_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -37,6 +39,7 @@ def create_team_table_SQL():
     cur.close()
     conn.close()
 
+# 在Team表格加入新的資訊，四個小隊的資訊已經建立，不需再執行
 def insert_team_table_SQL(team):
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -46,6 +49,7 @@ def insert_team_table_SQL(team):
     cur.close()
     conn.close()
 
+# print出所有小隊的資訊
 def print_team_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -58,6 +62,7 @@ def print_team_table_SQL():
     cur.close()
     conn.close()
 
+# 取得所有小隊的資訊，回傳二維陣列
 def get_team_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -68,8 +73,8 @@ def get_team_table_SQL():
     cur.close()
     conn.close()
     return rows
-    
 
+# 建立"一種"新的表格 Member，此函式只需執行一次，不需再執行
 def create_member_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -84,13 +89,7 @@ def create_member_table_SQL():
     cur.close()
     conn.close()
 
-"""
-insert_table_SQL()      :   新增資料函式(新增帳號)
-
-利用SQL語法，新增一筆Member格式的資料，把它加入PSQL資料庫裡面
-
-在終端機print出 'New user is created' ，知道有沒有新建成功
-"""
+# 在Member表格加入新的資訊，當有人去網頁註冊的時候，就會用這個函式去加入新的資料
 def insert_member_table_SQL(Member):
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -100,14 +99,7 @@ def insert_member_table_SQL(Member):
     cur.close()
     conn.close()
 
-"""
-print_table_SQL()       :   顯示資料函式
-
-自己測試BUG的函式，平時不會用
-
-利用SQL語法  "SELECT * FROM member"，取得有關member的所有資料
-讓rows 陣列去接住這些資料( rows = cur.fetchall() )，並一行一行print出來(for迴圈)
-"""
+# print出所有成員的資訊
 def print_member_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -120,14 +112,7 @@ def print_member_table_SQL():
     cur.close()
     conn.close()
 
-"""
-get_table_SQL()     :   返回資料的函式
-
-code 與  print_table_SQL()  大同小異
-
--->回傳資料二維陣列
-"""
-
+# 取得所有成員的資訊，回傳二維陣列
 def get_member_table_SQL():
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
@@ -138,3 +123,10 @@ def get_member_table_SQL():
     cur.close()
     conn.close()
     return rows
+
+
+
+#你們可以把下面兩行的code執行一次，把註解符號拿掉，並按下F5執行，就可以得到資料庫建立的所有資訊了
+
+#print_member_table_SQL()
+#print_team_table_SQL()

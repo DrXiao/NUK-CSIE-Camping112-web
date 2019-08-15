@@ -60,8 +60,8 @@
         document.getElementById('QRcodeInfo').value = content
         document.getElementById('QRscan').submit();
       });
-      //開始偵聽掃描事件，若有偵聽到印出內容。
-
+      //開始偵聽掃描事件，若有偵聽到印出內容，並把form表單的 QRcodeInfo 的值設定為QRcode的內容，再把form表單提交。
+      
       Instascan.Camera.getCameras().then(function (cameras) {
         //取得設備的相機數目
         if (cameras.length > 0) {
@@ -77,6 +77,15 @@
       });
     </script>
   </div>
+
+  <!-- 
+    form表單，
+    內含一個input元素，id是QRcodeInfo，即QRcode網址，
+    平時該表單會隱藏起來
+    action是 'QRscan' 路由，表示提交後(發出POST請求後)會交給 'QRscan'路由底下的函式處理
+    
+    在上述的script標籤裡已經設定好，掃到QRcode之後，該input標籤會被自動設為QRcode的網址，並自動提交該表單
+  -->
   <div>
     <form id='QRscan' action='/QRscan' method='POST'>
       <input type='hidden' id='QRcodeInfo' value='' name='QRcode'>

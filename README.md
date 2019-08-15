@@ -48,7 +48,7 @@
 
 * README.md : 就是你正在看的這一份文件，可線上編輯，可讓大家看到相關訊息
 
-* SQL_method.py : 可操作我們網站的資料庫，相關函式的檔案，主要有 在資料庫建立表格、在資料庫取得表格 等等函式
+* SQL_method.py : 可操作我們網站的資料庫，相關函式的py檔案，主要有 在資料庫建立表格、在資料庫取得表格 等等函式
 
 * requirements.txt : 告知Heroku，我們的檔案需要哪些套件與版本 (告知Heroku使用 Flask、gunicorn、psycopg2 套件)
 

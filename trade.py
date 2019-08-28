@@ -31,6 +31,3 @@ class trade_record:
         conn.commit()
         cur.close()
         conn.close()
-
-localtime = time.localtime()
-print(localtime.tm_hour)

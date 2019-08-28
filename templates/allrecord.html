@@ -23,11 +23,9 @@
         <h1>交易明細</h1>
         <div class="container">
             <div class="now_score">
-                <h1>目前積分</h1>
-                <h2>1200</h2>
+                <h1>交易近況</h1>
             </div>
             <div class="recent_record">
-                <h1>交易近況</h1>
                 <table>
                     <thead>
                         <tr>
@@ -39,12 +37,12 @@
                     </thead>
                     <tbody>
                         {%for item in list %}
-                            <tr>
-                                <td>{{item.date}}</td>
-                                <td>{{item.team}}</td>
-                                <td>{{item.target}}</td>
-                                <td>{{item.score}}</td>
-                            </tr>
+                        <tr>
+                            <td>{{item.date}}</td>
+                            <td>{{item.team}}</td>
+                            <td>{{item.target}}</td>
+                            <td>{{item.score}}</td>
+                        </tr>
                         {%endfor%}
                     </tbody>
                 </table>

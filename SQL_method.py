@@ -38,17 +38,17 @@ def print_team_table_SQL():
     cur.close()
     conn.close()
 
-# 取得所有小隊的資訊，回傳二維陣列
-def get_team_table_SQL():
+# 取得某個小隊的資訊，回傳二維陣列
+def get_team_table_SQL(team):
     conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
-    cur.execute("SELECT * FROM team")
+    cur.execute("SELECT * FROM team where teamname = \'%s\'"%(team))
     rows = []
     rows = cur.fetchall()
     conn.commit()
     cur.close()
     conn.close()
-    return rows
+    return rows[0][0],rows[0][1]
 
 
 # print出所有成員的資訊

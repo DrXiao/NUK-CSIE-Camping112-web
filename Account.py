@@ -3,9 +3,6 @@
 import SQL_method as sql
 import copy
 
-# team陣列，會接收資料庫的 team 表格(可視作二維陣列)
-team = []
-
 # Member 類別，一個同學的資訊
 class Member:
     def __init__(self,Name,Account,Password,team):
@@ -21,12 +18,18 @@ class Member:
 
 # Team 類別，一個小隊的資訊
 class Team:
-    def __init__(self,TeamName,Score):
-        self.TeamName = TeamName
-        self.Score = Score
-    def renew(self,TeamName,Score):
-        self.TeamName = TeamName
-        self.Score = Score
+    def get_dragon():
+        teamname,score = sql.get_team_table_SQL('青龍')
+        return teamname,score
+    def get_tiger():
+        teamname,score = sql.get_team_table_SQL('白虎')
+        return teamname,score
+    def get_phoenix():
+        teamname,score = sql.get_team_table_SQL('朱雀')
+        return teamname,score
+    def get_tortoise():
+        teamname,score = sql.get_team_table_SQL('玄武')
+        return teamname,score
 
 """
 login函式
@@ -49,25 +52,6 @@ def login(account,password):
                 return '密碼錯誤!',False
     return '沒有註冊帳號!',False
 
-
-# team 陣列得到二維陣列，為所有小隊的小隊名稱、小隊分數
-team = sql.get_team_table_SQL()
-
-# 四個小隊的類別變數，因為分數是有共通性的，所有同學看到的分數都是從這四個類別變數的 Score 變數看到
-Dargon_team = Team('',0)
-Tiger_team = Team('',0)
-Phoenix_team = Team('',0)
-Tortoise_team = Team('',0)
-
-for i in range(4):
-    if team[i][0] == '青龍':
-        Dargon_team.renew(team[i][0],team[i][1])
-    elif team[i][0] == '白虎':
-        Tiger_team.renew(team[i][0],team[i][1])
-    elif team[i][0] == '朱雀':
-        Phoenix_team.renew(team[i][0],team[i][1])
-    elif team[i][0] == '玄武':
-        Tortoise_team.renew(team[i][0],team[i][1])
 
 #sql.create_team_table_SQL()
 #team = Team('青龍',0)

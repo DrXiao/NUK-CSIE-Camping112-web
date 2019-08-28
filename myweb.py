@@ -1,19 +1,10 @@
 # flask套件匯入類別、方法
 from flask import Flask, render_template, request, url_for, redirect, make_response
-from trade import team_give_score,trade_record
-"""
-翻譯時間
-
-Flask : 網站主體的class  (可能是class沒錯)
-render_template : 函式，顯示一個html網頁
-request : 函式，判斷前端發出POST、GET請求等等
-url_for : 函式，會逆向分析，從一個函式找到它的路由為何
-redirect : 函式，把前端重新導向一個新路由
-"""
-
+from trade import team_give_score, trade_record
+import SQL_method as sql
 # 自定義的Account套件，匯入兩個類別、兩個函式、四個變數
-from Account import Member, Team, login
-from Account import Dargon_team, Tiger_team, Phoenix_team, Tortoise_team
+from Account import Member, login
+
 
 # app就是網站啦!
 app = Flask(__name__)
@@ -103,21 +94,17 @@ def staff_page():
     cookie_name = request.cookies.get('User')
     if request.method == 'POST':
         teamname = request.values['team_name']
-        if (int)(request.values['team_score']) == 0:
-            pass
-        elif teamname == '青龍':
-            team_give_score(Dargon_team,cookie_name,(int)(request.values['team_score']))
-        elif teamname == '朱雀':
-            team_give_score(Phoenix_team,cookie_name,(int)(request.values['team_score']))
-        elif teamname == '白虎':
-            team_give_score(Tiger_team,cookie_name,(int)(request.values['team_score']))
-        elif teamname == '玄武':
-            team_give_score(Tortoise_team,cookie_name,(int)(request.values['team_score']))
+        team_give_score(teamname, cookie_name, (int)
+                        (request.values['team_score']))
     if cookie_team == '工作人員':
-        return render_template('staff.html', Dragon=Dargon_team.TeamName, Dragon_score=Dargon_team.Score,
-                               Phoenix=Phoenix_team.TeamName, Phoenix_score=Phoenix_team.Score,
-                               Tiger=Tiger_team.TeamName, Tiger_score=Tiger_team.Score,
-                               Tortoise=Tortoise_team.TeamName, Tortoise_score=Tortoise_team.Score)
+        Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
+        Phoenix, Phoenix_score = sql.get_team_table_SQL('朱雀')
+        Tiger, Tiger_score = sql.get_team_table_SQL('白虎')
+        Tortoise, Tortoise_score = sql.get_team_table_SQL('玄武')
+        return render_template('staff.html', Dragon=Dragon, Dragon_score=Dragon_score,
+                               Phoenix=Phoenix, Phoenix_score=Phoenix_score,
+                               Tiger=Tiger, Tiger_score=Tiger_score,
+                               Tortoise=Tortoise, Tortoise_score=Tortoise_score)
     else:
         return '不是工作人員'
 
@@ -128,7 +115,7 @@ def get_record():
     cookie_name = request.cookies.get('User')
     if cookie_team == '工作人員':
         mytrade = trade_record(cookie_name)
-        return render_template('allrecord.html',list = mytrade.trade_list)
+        return render_template('allrecord.html', list=mytrade.trade_list)
     else:
         return '不是工作人員'
 

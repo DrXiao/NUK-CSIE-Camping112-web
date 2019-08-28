@@ -24,6 +24,9 @@ class Team:
     def __init__(self,TeamName,Score):
         self.TeamName = TeamName
         self.Score = Score
+    def renew(self,TeamName,Score):
+        self.TeamName = TeamName
+        self.Score = Score
 
 """
 login函式
@@ -51,10 +54,20 @@ def login(account,password):
 team = sql.get_team_table_SQL()
 
 # 四個小隊的類別變數，因為分數是有共通性的，所有同學看到的分數都是從這四個類別變數的 Score 變數看到
-Dargon_team = Team(team[0][0],team[0][1])
-Tiger_team = Team(team[1][0],team[1][1])
-Phoenix_team = Team(team[2][0],team[2][1])
-Tortoise_team = Team(team[3][0],team[3][1])
+Dargon_team = Team('',0)
+Tiger_team = Team('',0)
+Phoenix_team = Team('',0)
+Tortoise_team = Team('',0)
+
+for i in range(4):
+    if team[i][0] == '青龍':
+        Dargon_team.renew(team[i][0],team[i][1])
+    elif team[i][0] == '白虎':
+        Tiger_team.renew(team[i][0],team[i][1])
+    elif team[i][0] == '朱雀':
+        Phoenix_team.renew(team[i][0],team[i][1])
+    elif team[i][0] == '玄武':
+        Tortoise_team.renew(team[i][0],team[i][1])
 
 #sql.create_team_table_SQL()
 #team = Team('青龍',0)

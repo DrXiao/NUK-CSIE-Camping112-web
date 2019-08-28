@@ -21,9 +21,37 @@
     <div class="header">
         <a href="{{url_for('go_to_team')}}" class="button return">返回</a>
         <h1>交易明細</h1>
-
+        <div class="container">
+            <div class="now_score">
+                <h1>目前積分</h1>
+                <h2>1200</h2>
+            </div>
+            <div class="recent_record">
+                <h1>交易近況</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>時間戳記</th>
+                            <th>交易對象</th>
+                            <th>交易人</th>
+                            <th>交易數量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for item in list %}
+                            <tr>
+                                <td>{{item.date}}</td>
+                                <td>{{item.team}}</td>
+                                <td>{{item.target}}</td>
+                                <td>{{item.score}}</td>
+                            </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-   
+
 
 
 

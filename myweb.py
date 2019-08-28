@@ -1,6 +1,6 @@
 # flask套件匯入類別、方法
 from flask import Flask, render_template, request, url_for, redirect, make_response
-from trade import team_give_score
+from trade import team_give_score,trade_record
 """
 翻譯時間
 
@@ -40,8 +40,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     the_member = Member('', '', '', '')
-    cookie = request.cookies.get('TeamName')
-    if cookie != None:
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team != None and cookie_name != None:
         return redirect(url_for('go_to_team'))
     if request.method == 'POST':
         member, flag = login(
@@ -51,6 +52,7 @@ def home():
                              member.Password, member.team)
             res = make_response(redirect(url_for('go_to_team')))
             res.set_cookie('TeamName', the_member.team)
+            res.set_cookie('User', the_member.Name)
             return res
         else:
             return member
@@ -78,40 +80,55 @@ def QRcode_scan():
 # 在經歷過首頁登入之後，member會有一個資料成員 team ，由team判斷該帳號是哪一個小隊，並顯示小隊頁面
 @app.route('/team')
 def go_to_team():
-    cookie = request.cookies.get('TeamName')
+    cookie_team = request.cookies.get('TeamName')
 
-    if cookie == '青龍':
+    if cookie_team == '青龍':
         return render_template('team_green.html')
-    elif cookie == '白虎':
+    elif cookie_team == '白虎':
         return render_template('team_white.html')
-    elif cookie == '朱雀':
+    elif cookie_team == '朱雀':
         return render_template('team_red.html')
-    elif cookie == '玄武':
+    elif cookie_team == '玄武':
         return render_template('team_black.html')
-    elif  cookie== '工作人員':
+    elif cookie_team == '工作人員':
         return redirect(url_for('staff_page'))
     else:
-        print(cookie)
+        print(cookie_team)
         return '尚未登入!!'
 
 
 @app.route('/staff', methods=['GET', 'POST'])
 def staff_page():
-    cookie = request.cookies.get('TeamName')
-    if cookie== '工作人員':
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if request.method == 'POST':
+        teamname = request.values['team_name']
+        if (int)(request.values['team_score']) == 0:
+            pass
+        elif teamname == '青龍':
+            team_give_score(Dargon_team,cookie_name,(int)(request.values['team_score']))
+        elif teamname == '朱雀':
+            team_give_score(Phoenix_team,cookie_name,(int)(request.values['team_score']))
+        elif teamname == '白虎':
+            team_give_score(Tiger_team,cookie_name,(int)(request.values['team_score']))
+        elif teamname == '玄武':
+            team_give_score(Tortoise_team,cookie_name,(int)(request.values['team_score']))
+    if cookie_team == '工作人員':
         return render_template('staff.html', Dragon=Dargon_team.TeamName, Dragon_score=Dargon_team.Score,
-            Phoenix=Phoenix_team.TeamName, Phoenix_score=Phoenix_team.Score,
-             Tiger=Tiger_team.TeamName, Tiger_score=Tiger_team.Score,
-             Tortoise=Tortoise_team.TeamName, Tortoise_score=Tortoise_team.Score)
+                               Phoenix=Phoenix_team.TeamName, Phoenix_score=Phoenix_team.Score,
+                               Tiger=Tiger_team.TeamName, Tiger_score=Tiger_team.Score,
+                               Tortoise=Tortoise_team.TeamName, Tortoise_score=Tortoise_team.Score)
     else:
         return '不是工作人員'
 
 
 @app.route('/record')
 def get_record():
-    cookie = request.cookies.get('TeamName')
-    if cookie == '工作人員':
-        return render_template('allrecord.html')
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team == '工作人員':
+        mytrade = trade_record(cookie_name)
+        return render_template('allrecord.html',list = mytrade.trade_list)
     else:
         return '不是工作人員'
 

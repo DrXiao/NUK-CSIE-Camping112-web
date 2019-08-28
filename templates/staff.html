@@ -6,15 +6,28 @@
        <title>staff</title>
        <link rel="stylesheet" href="/static/css/reset2.css">
        <link rel="stylesheet" href="/static/css/staff.css">
-       <style>
-
-       </style>
+       <script type="text/javascript">
+              function give_score(Team) {
+                     var score = '';
+                     if (Team == '青龍')
+                            score = document.getElementById('aka').value;
+                     if (Team == '朱雀')
+                            score = document.getElementById('shiro').value;
+                     if (Team == '白虎')
+                            score = document.getElementById('ao').value;
+                     if (Team == '玄武')
+                            score = document.getElementById('kuro').value;
+                     document.getElementById('team_name').value = Team;
+                     document.getElementById('team_score').value = score;
+                     document.getElementById('team_get').submit();
+              }
+       </script>
 
 </head>
 
 <body>
 
-       <div class="header" >
+       <div class="header">
               <div class="button_group">
                      <a href="#d1" class="button">各組目前積分</a>
                      <a href="#d2" class="button">積分加減</a>
@@ -27,7 +40,7 @@
               <div id="d1" class="now_scores">
                      <h1>各組積分</h1>
                      <table>
-                            <thead >
+                            <thead>
                                    <tr>
                                           <th>隊名</th>
                                           <th>總計</th>
@@ -55,31 +68,34 @@
 
 
               </div>
+
+
+
               <div class="scores_submit" id="d2">
 
                      <h1>積分加減</h1>
                      <div class="team green">
-                            <span> 青龍</span><input type="text" placeholder="扣分請輸入負號" name="aka"><input type="submit"
-                                   value="送出">
+                            <span> 青龍</span><input type="text" placeholder="扣分請輸入負號" id="aka"><input type="submit"
+                                   value="送出" onclick="give_score('青龍')">
                      </div>
                      <div class="team red">
-                            <span> 朱雀</span><input type="text" placeholder="扣分請輸入負號" name="shiro"><input type="submit"
-                                   value="送出">
+                            <span> 朱雀</span><input type="text" placeholder="扣分請輸入負號" id="shiro"><input type="submit"
+                                   value="送出" onclick="give_score('朱雀')">
                      </div>
                      <div class="team white">
-                            <span> 白虎</span><input type="text" placeholder="扣分請輸入負號" name="ao"><input type="submit"
-                                   value="送出">
+                            <span> 白虎</span><input type="text" placeholder="扣分請輸入負號" id="ao"><input type="submit"
+                                   value="送出" onclick="give_score('白虎')">
                      </div>
                      <div class="team black">
-                            <span> 玄武</span><input type="text" placeholder="扣分請輸入負號" name="kuro"><input type="submit"
-                                   value="送出">
+                            <span> 玄武</span><input type="text" placeholder="扣分請輸入負號" id="kuro"><input type="submit"
+                                   value="送出" onclick="give_score('玄武')">
                      </div>
-
-
-
-
-
-
+                     <div>
+                            <form id='team_get' action='/staff' method='POST'>
+                                   <input type='hidden' id='team_name' name='team_name' value=''>
+                                   <input type='hidden' id='team_score' name='team_score' value=''>
+                            </form>
+                     </div>
               </div>
 
 

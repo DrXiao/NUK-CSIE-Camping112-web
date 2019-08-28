@@ -40,6 +40,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     the_member = Member('', '', '', '')
+    cookie = request.cookies.get('TeamName')
+    if cookie != None:
+        return redirect(url_for('go_to_team'))
     if request.method == 'POST':
         member, flag = login(
             request.values['Account'], request.values['Password'])
@@ -115,5 +118,5 @@ def get_record():
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run()

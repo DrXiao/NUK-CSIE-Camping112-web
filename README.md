@@ -98,7 +98,7 @@ Team 表格 : 一個小隊 小隊名字、小隊分數
 
 小隊密碼:
 
-  * DargonTeam : 青龍小隊
+  * DragonTeam : 青龍小隊
   
   * TigerTeam : 白虎小隊
   

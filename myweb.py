@@ -1,5 +1,6 @@
 #flask套件匯入類別、方法
 from flask import Flask,render_template,request,url_for,redirect
+from trade import team_give_score
 """
 翻譯時間
 
@@ -39,6 +40,7 @@ the_member = Member('','','','')
 """
 @app.route('/',methods = ['GET','POST'])
 def home():
+    the_member.renew('','','','')
     if request.method == 'POST':
         member,flag = login(request.values['Account'],request.values['Password'])
         if flag ==True:
@@ -81,7 +83,10 @@ def go_to_team():
     elif the_member.team == '玄武':
         return render_template('team_black.html')
     elif the_member.team == '工作人員':
-        return render_template('staff.html')
+        return render_template('staff.html',Dragon = Dargon_team.TeamName,Dragon_score = Dargon_team.Score,
+            Phoenix = Phoenix_team.TeamName,Phoenix_score = Phoenix_team.Score,
+             Tiger = Tiger_team.TeamName,Tiger_score = Tiger_team.Score,
+             Tortoise = Tortoise_team.TeamName ,Tortoise_score = Tortoise_team.Score)
     else:
         print(the_member.team)
         return '尚未登入!!'

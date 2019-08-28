@@ -55,7 +55,7 @@ Dargon_team = Team(team[0][0],team[0][1])
 Tiger_team = Team(team[1][0],team[1][1])
 Phoenix_team = Team(team[2][0],team[2][1])
 Tortoise_team = Team(team[3][0],team[3][1])
-print(team)
+
 #sql.create_team_table_SQL()
 #team = Team('青龍',0)
 #sql.insert_team_table_SQL(team)

@@ -1,7 +1,6 @@
 import SQL_method as sql
 import psycopg2
 import time
-from Account import Team
 
 def team_give_score(team,target,score):
     localtime = time.localtime()
@@ -32,3 +31,6 @@ class trade_record:
         conn.commit()
         cur.close()
         conn.close()
+
+localtime = time.localtime()
+print(localtime.tm_hour)

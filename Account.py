@@ -16,21 +16,6 @@ class Member:
         self.Password = Password
         self.team = team
 
-# Team 類別，一個小隊的資訊
-class Team:
-    def get_dragon():
-        teamname,score = sql.get_team_table_SQL('青龍')
-        return teamname,score
-    def get_tiger():
-        teamname,score = sql.get_team_table_SQL('白虎')
-        return teamname,score
-    def get_phoenix():
-        teamname,score = sql.get_team_table_SQL('朱雀')
-        return teamname,score
-    def get_tortoise():
-        teamname,score = sql.get_team_table_SQL('玄武')
-        return teamname,score
-
 """
 login函式
 由帳號密碼判斷登入成不成功，

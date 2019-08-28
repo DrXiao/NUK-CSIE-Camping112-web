@@ -8,12 +8,12 @@
     <title>玄武隊</title>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/team_green.css">
+    <link rel="stylesheet" href="/static/css/team_all.css">
     <link rel="stylesheet" href="/static/css/reset.css">
 </head>
 
-<body>
-    <div class="header">
+<body class="black">
+    <div class="header black">
         <div class="team_name">
             <h1>玄武</h1>
         </div>
@@ -23,23 +23,88 @@
                 <i class="fas fa-bars"></i>
             </label>
 
-            <!-- <img src="/mypage/svg/bars.svg" alt="menu"> -->
+            <!-- <img src="svg/bars.svg" alt="menu"> -->
         </div>
 
         <ul class="menu">
-			<label for="chk" class="hide_menu_btn">
+            <label for="chk" class="hide_menu_btn">
                 <i class="fas fa-times"></i>
             </label>
-            <a href="index.html">你的資訊</a>
-            <a href="{{url_for('QRcode_scan')}}">打開相機</a>
-            <a href="trade.html">金幣交易</a>
-            
+            <a class="black" href="index.html">登入</a>
+            <a class="black" href="{{url_for('QRcode_scan')}}">打開相機</a>
+            <a class="black" href="trade.html">金幣交易</a>
+
         </ul>
     </div>
-    <div style = "text-align: center">
-        你好! {{team}}-{{Name}}</br>
-        你的帳號 : {{Account}}</br>
-        目前小組積分 : {{Score}}</br>
+    <div class="container">
+        <div class="now_score">
+            <h1>目前積分</h1>
+            <h2>1200</h2>
+        </div>
+        <div class="recent_record">
+            <h1>交易近況</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>時間戳記</th>
+                        <th>交易對象</th>
+                        <th>交易數量</th>
+                        <th>積分總計</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>16:00</td>
+                        <td>第8關</td>
+                        <td>+0</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>15:00</td>
+                        <td>第7關</td>
+                        <td>+1200</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>14:00</td>
+                        <td>第6關</td>
+                        <td>-1200</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>13:00</td>
+                        <td>第5關</td>
+                        <td>+1200</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>12:00</td>
+                        <td>第4關</td>
+                        <td>-1200</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>11:00</td>
+                        <td>第3關</td>
+                        <td>+1200</td>
+                        <td>1200</td>
+                    </tr>
+                    <tr>
+                        <td>10:00</td>
+                        <td>第2關</td>
+                        <td>-1200</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>09:00</td>
+                        <td>第1關</td>
+                        <td>+1200</td>
+                        <td>1200</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

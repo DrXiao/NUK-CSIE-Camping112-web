@@ -11,15 +11,14 @@ redirect : 函式，把前端重新導向一個新路由
 """
 
 #自定義的Account套件，匯入兩個類別、兩個函式、四個變數
-from Account import Member,Team,login,register
-from Account import Dargon_team,Tiger_team,Phoenix_team,Tortoise_Team
+from Account import Member,Team,login
+from Account import Dargon_team,Tiger_team,Phoenix_team,Tortoise_team
 
 #app就是網站啦!
 app = Flask(__name__)
 
 #目前User的進入網站的資訊
 the_member = Member('','','','')
-
 
 
 #裝飾器，app.route()，決定一個「路由」要做什麼事情
@@ -51,31 +50,6 @@ def home():
     return render_template('homepage.html')
 
 
-
-"""
-'/registration' 路由
-
-顯示一個註冊頁面給使用者
-
-若使用者發出 POST 請求，表示使用者要求註冊
-    register函式會判斷前端送出的 名字、帳號、密碼、小隊密碼，並在資料庫新增資料，最後回傳一個值給flag變數
-        若flag為True表示註冊成功
-            並把使用者重新導向首頁
-        否則，表示註冊失敗
-            網頁會回應flag的字串訊息
-"""
-@app.route('/registration',methods = ['GET','POST'])
-def registration_page():
-    if request.method == 'POST':
-        flag = register(request.values['Name'],request.values['Account'],request.values['Password'],request.values['Teampassword'])
-        if flag == True:
-            return redirect(url_for('home'))
-        else:
-            return flag
-    return render_template('registration.html')
-
-
-
 """
 '/QRscan' 路由
 
@@ -99,13 +73,15 @@ def QRcode_scan():
 @app.route('/team')
 def go_to_team():
     if the_member.team == '青龍':
-        return render_template('team_green.html',team = the_member.team,Name = the_member.Name,Account = the_member.Account,Score = Dargon_team.Score)
+        return render_template('team_green.html')
     elif the_member.team == '白虎':
-        return render_template('team_white.html',team = the_member.team,Name = the_member.Name,Account = the_member.Account,Score = Tiger_team.Score)
+        return render_template('team_white.html')
     elif the_member.team == '朱雀':
-        return render_template('team_red.html',team = the_member.team,Name = the_member.Name,Account = the_member.Account,Score = Phoenix_team.Score)
+        return render_template('team_red.html')
     elif the_member.team == '玄武':
-        return render_template('team_black.html',team = the_member.team,Name = the_member.Name,Account = the_member.Account,Score = Tortoise_Team.Score)
+        return render_template('team_black.html')
+    elif the_member.team == '工作人員':
+        return render_template('staff.html')
     else:
         print(the_member.team)
         return '尚未登入!!'

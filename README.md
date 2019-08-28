@@ -92,23 +92,20 @@ Team 表格 : 一個小隊 小隊名字、小隊分數
 
 ### 4. 登入系統 (15%):
 
-有帳號登入功能、註冊帳號功能
+有帳號登入功能
 
 登入成功後會顯示小隊專屬頁面、顯示小隊分數
 
-註冊功能可令同學註冊一組帳密、並分配小隊
+小隊密碼:
 
-註冊的小隊密碼:
+  * DargonTeam : 青龍小隊
+  
+  * TigerTeam : 白虎小隊
+  
+  * PhoenixTeam : 朱雀小隊
+  
+  * TortoiseTeam : 玄武小隊
 
-  * IamDargonTeam : 青龍小隊
-  
-  * BeTigerTeam : 白虎小隊
-  
-  * WeArePhoenixTeam : 朱雀小隊
-  
-  * GoToTortoiseTeam : 玄武小隊
-
-這個是暫時的方案，小隊我們自己分
 
 評估完成%數 : 9%
 

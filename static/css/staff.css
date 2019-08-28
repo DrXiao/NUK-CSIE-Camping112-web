@@ -1,0 +1,170 @@
+
+.button {
+    width: auto;
+    height: auto;
+    border-radius: 10000px;
+    color: #E7C583;
+    background-color: transparent;
+    margin:0 10px;
+    padding:5px 10px;
+    /* border-color: rgba(60, 39, 87, 0.781); */
+    
+    font-size: 1rem;
+    font-weight: normal;
+    text-decoration: none;
+    border:1px solid #fff;
+    box-shadow: 1px 1px 10px #aaa inset;
+    border-radius: 10px;
+
+
+}
+body{
+    background:linear-gradient(rgb(22, 22, 22),rgb(109, 104, 104)); 
+    margin:0; 
+    padding: 0;
+    
+}
+.header{
+    position: fixed ;
+   
+    /* background-color: rgb(200, 241, 253); */
+    background:rgba(39,39,39,1);
+    box-shadow: 2px 2px 8px #ccc;
+    margin: 0 0 10px;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    
+    
+
+
+}
+.header h1{
+    display: inline;
+    color: white;
+    position: relative;
+    top:5px;
+}
+.button_group{
+    position: relative;
+    top:15px;
+    widows: 100%;
+    
+    
+    
+}
+
+.wrapper{
+    position: relativet;
+    top: 10%;
+    align-self: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    /* background-color: #ccc; */
+}
+
+.now_score{
+    font-size: 100%;
+    background-color: rgb(176, 202, 250) ;
+    width: auto;
+    height: auto;
+    z-index:0 ;
+}
+.now_scores h1{
+    color: white;
+    margin-top: 100px;
+    text-align: center;
+    font-size: 3rem;
+}
+table{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 2rem;
+    background-color: #ccc;
+        color: #555454;
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        /* font-size: 0px; */
+        border: none;
+        /* border: 1px solid #000; */
+        border-collapse: collapse;
+}
+thead{
+    border-bottom: 1px solid #000;
+    background-color: #aaa;
+    
+}
+tshead tr{
+    margin: 0 10px;
+    color:#555454;
+ 
+}
+tr:nth-child(odd){
+    background-color: #fff;
+
+}
+tbody tr:nth-child(1){
+    color: #00FFDB;
+}
+tbody tr:nth-child(2){
+    color:#FF4D00;
+}
+tbody tr:nth-child(3){
+    color:#84A1C1;
+}
+tbody tr:nth-child(4){
+    color:#00BB3B;
+}
+#d1::before{
+    content: "";
+    display: block;
+    margin: -100px 0 0;
+    height: 60px;
+}
+.scores_submit{
+    /* background:rgb(240, 240, 240); */
+    background: rgba(0,0,0,0.2);
+    width: 85%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    text-align: center;
+    /* border:1px solid #000; */
+   
+}
+.scores_submit h1{
+    font-size: 3rem;
+     color: white;
+}
+.scores_submit span{
+    font-size: 2rem;
+    position: relative;
+    top: 5px;
+    margin: 0 10px;
+}
+.scores_submit input[type="text"]{
+    width: 120px;
+}
+.scores_submit .team{
+    margin:10px 0;
+}
+
+.green{
+    color: #00FFDB;
+}
+.red{
+    color:#FF4D00;
+}
+.white{
+    color:#84A1C1;
+}
+.black{
+    color:#00BB3B;
+}
+
+
+
+

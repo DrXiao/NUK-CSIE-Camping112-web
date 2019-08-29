@@ -1,6 +1,6 @@
 # flask套件匯入類別、方法
 from flask import Flask, render_template, request, url_for, redirect, make_response
-from trade import team_give_score, trade_record
+from trade import team_give_score, trade_record, team_record
 import SQL_method as sql
 # 自定義的Account套件，匯入兩個類別、兩個函式、四個變數
 from Account import Member, login
@@ -74,13 +74,21 @@ def go_to_team():
     cookie_team = request.cookies.get('TeamName')
 
     if cookie_team == '青龍':
-        return render_template('team_green.html')
+        Dragon_trade = team_record('青龍')
+        Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
+        return render_template('team_green.html', list=Dragon_trade.trade_list, score=Dragon_score)
     elif cookie_team == '白虎':
-        return render_template('team_white.html')
+        Tiger_trade = team_record('白虎')
+        Tiger, Tiger_score = sql.get_team_table_SQL('白虎')
+        return render_template('team_white.html', list=Tiger_trade.trade_list, score=Tiger_score)
     elif cookie_team == '朱雀':
-        return render_template('team_red.html')
+        Phoenix_trade = team_record('朱雀')
+        Phoenix, Phoenix_score = sql.get_team_table_SQL('朱雀')
+        return render_template('team_red.html', list=Phoenix_trade.trade_list, score=Phoenix_score)
     elif cookie_team == '玄武':
-        return render_template('team_black.html')
+        Tortoise_trade = team_record('玄武')
+        Tortoise, Tortoise_score = sql.get_team_table_SQL('玄武')
+        return render_template('team_black.html', list=Tortoise_trade.trade_list, score=Tortoise_score)
     elif cookie_team == '工作人員':
         return redirect(url_for('staff_page'))
     else:
@@ -107,6 +115,14 @@ def staff_page():
                                Tortoise=Tortoise, Tortoise_score=Tortoise_score)
     else:
         return '不是工作人員'
+
+
+@app.route('/delcookie')
+def delete_cookie():
+    res = make_response(redirect(url_for('home')))
+    res.delete_cookie('TeamName')
+    res.delete_cookie('User')
+    return res
 
 
 @app.route('/record')

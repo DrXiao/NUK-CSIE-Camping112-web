@@ -29,7 +29,7 @@ def login(account,password):
         return '帳號或密碼為空',False
     member = sql.get_member_table_SQL()
     for i in range(len(member)):
-        if member[i][1] == account:
+        if member[i][1] == account or member[i][1] == str.title(account):
             if member[i][2] == password:
                 the_member = Member(member[i][0],member[i][1],member[i][2],member[i][3])
                 return the_member,True

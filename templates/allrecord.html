@@ -29,19 +29,19 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style = "color:black;font-size: 10px">時間戳記</th>
-                            <th style = "color:black;font-size: 10px">交易對象</th>
-                            <th style = "color:black;font-size: 10px">交易人</th>
-                            <th style = "color:black;font-size: 10px">交易數量</th>
+                            <th style = "color:black;font-size: 12px">時間戳記</th>
+                            <th style = "color:black;font-size: 12px">交易對象</th>
+                            <th style = "color:black;font-size: 12px">交易人</th>
+                            <th style = "color:black;font-size: 12px">交易數量</th>
                         </tr>
                     </thead>
                     <tbody>
                         {%for item in list %}
                         <tr>
-                            <td style = "color:black;font-size: 10px">{{item.date}}</td>
-                            <td style = "color:black;font-size: 10px">{{item.team}}</td>
-                            <td style = "color:black;font-size: 10px">{{item.target}}</td>
-                            <td style = "color:black;font-size: 10px">{{item.score}}</td>
+                            <td style = "color:black;font-size: 12px">{{item.date}}</td>
+                            <td style = "color:black;font-size: 12px">{{item.team}}</td>
+                            <td style = "color:black;font-size: 12px">{{item.target}}</td>
+                            <td style = "color:black;font-size: 12px">{{item.score}}</td>
                         </tr>
                         {%endfor%}
                     </tbody>

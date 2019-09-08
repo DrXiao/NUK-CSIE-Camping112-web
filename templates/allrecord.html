@@ -35,13 +35,13 @@
                             <th style = "color:black">交易數量</th>
                         </tr>
                     </thead>
-                    <tbody style = "overflow: auto">
+                    <tbody>
                         {%for item in list %}
                         <tr>
-                            <td>{{item.date}}</td>
-                            <td>{{item.team}}</td>
-                            <td>{{item.target}}</td>
-                            <td>{{item.score}}</td>
+                            <td style = "color:black">{{item.date}}</td>
+                            <td style = "color:black">{{item.team}}</td>
+                            <td style = "color:black">{{item.target}}</td>
+                            <td style = "color:black">{{item.score}}</td>
                         </tr>
                         {%endfor%}
                     </tbody>

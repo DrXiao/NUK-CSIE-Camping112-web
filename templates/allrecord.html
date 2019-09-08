@@ -16,7 +16,7 @@
     </style>
 </head>
 
-<body style = "overflow: auto">
+<body>
 
     <div class="header">
         <a href="{{url_for('go_to_team')}}" class="button return">返回</a>
@@ -29,13 +29,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>時間戳記</th>
-                            <th>交易對象</th>
-                            <th>交易人</th>
-                            <th>交易數量</th>
+                            <th style = "color:black">時間戳記</th>
+                            <th style = "color:black">交易對象</th>
+                            <th style = "color:black">交易人</th>
+                            <th style = "color:black">交易數量</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style = "overflow: auto">
                         {%for item in list %}
                         <tr>
                             <td>{{item.date}}</td>

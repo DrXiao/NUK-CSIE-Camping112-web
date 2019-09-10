@@ -43,10 +43,22 @@ body{
 
 }
 .header h1{
-    display: inline;
+    display: inline-block;
     color: white;
     position: relative;
     top:5px;
+    /*left:50%;*/
+    width: 100vw;
+    margin:0 auto;
+    text-align: center;
+}
+.return {
+    float: right;
+    top: 10px;
+    position: fixed;
+    top: 0.8em;
+    right: 0;
+
 }
 .button_group{
     position: relative;

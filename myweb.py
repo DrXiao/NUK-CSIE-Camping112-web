@@ -5,7 +5,6 @@ import SQL_method as sql
 # 自定義的Account套件，匯入兩個類別、兩個函式、四個變數
 from Account import Member, login
 
-
 # app就是網站啦!
 app = Flask(__name__)
 
@@ -89,7 +88,7 @@ def go_to_team():
         Tortoise_trade = team_record('玄武')
         Tortoise, Tortoise_score = sql.get_team_table_SQL('玄武')
         return render_template('team_black.html', list=Tortoise_trade.trade_list, score=Tortoise_score)
-    elif cookie_team == '工作人員':
+    elif cookie_team.find('工作人員') != -1:
         return redirect(url_for('staff_page'))
     else:
         print(cookie_team)
@@ -104,15 +103,18 @@ def staff_page():
         teamname = request.values['team_name']
         team_give_score(teamname, cookie_name, (int)
                         (request.values['team_score']))
-    if cookie_team == '工作人員':
+    if cookie_team.find('工作人員') != -1:
+        authority = False;
         Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
         Phoenix, Phoenix_score = sql.get_team_table_SQL('朱雀')
         Tiger, Tiger_score = sql.get_team_table_SQL('白虎')
         Tortoise, Tortoise_score = sql.get_team_table_SQL('玄武')
+        if cookie_team == '上級工作人員':
+            authority = True
         return render_template('staff.html', Dragon=Dragon, Dragon_score=Dragon_score,
                                Phoenix=Phoenix, Phoenix_score=Phoenix_score,
                                Tiger=Tiger, Tiger_score=Tiger_score,
-                               Tortoise=Tortoise, Tortoise_score=Tortoise_score)
+                               Tortoise=Tortoise, Tortoise_score=Tortoise_score,flag = authority)
     else:
         return '不是工作人員'
 
@@ -129,8 +131,8 @@ def delete_cookie():
 def get_record():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
-    if cookie_team == '工作人員':
-        mytrade = trade_record(cookie_name)
+    if cookie_team.find('工作人員') != -1:
+        mytrade = trade_record()
         return render_template('allrecord.html', list=mytrade.trade_list)
     else:
         return '不是工作人員'
@@ -138,10 +140,10 @@ def get_record():
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    #app.debug = True
+    app.debug = True
     app.run()
 
 
 # 修正項目 : 
-# 交易明細 滾輪
 # 登入密碼 全部小寫
+# 一個小隊一個帳號

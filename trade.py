@@ -15,11 +15,11 @@ def team_give_score(team,target,score):
     conn.close()
 
 class trade_record:
-    def __init__(self,name):
+    def __init__(self):
         conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
         cur = conn.cursor()
         trade_list = []
-        cur.execute(' SELECT * FROM trade WHERE target = \'%s\' '%(name))
+        cur.execute(' SELECT * FROM trade ')
         trade_list = cur.fetchall()
         trade_list.reverse()
         self.trade_list = []

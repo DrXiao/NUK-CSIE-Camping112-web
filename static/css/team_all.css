@@ -191,7 +191,8 @@ tr:nth-child(even) {
     .menu a {
         display: block;
         font-size: 2rem;
-        padding: 40px 50px;
+        margin: 60px 20px;
+        
     }
     .hide_menu_btn {
         position: absolute;

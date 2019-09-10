@@ -43,7 +43,7 @@ body{
 
 }
 .header h1{
-    
+    display: inline;
     color: white;
     position: relative;
     top:5px;

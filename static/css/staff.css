@@ -43,14 +43,14 @@ body{
 
 }
 .header h1{
-    display: inline;
+    
     color: white;
     position: relative;
     top:5px;
 }
 .button_group{
     position: relative;
-    top:30px;
+    top:15px;
     widows: 100%;
     
     

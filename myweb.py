@@ -72,7 +72,6 @@ def QRcode_scan():
             score = re.search(r'-?[0-9]+', team_score.group())
             team = dict_team[team.group()]
             score = score.group()
-            print(team, score, target)
             if team != request.cookies.get('TeamName'):
                 return redirect(url_for('go_to_team'))
             else:
@@ -167,7 +166,6 @@ def delete_cookie():
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
     # app.debug = True
-    print(dict_member)
     app.run()
 
 

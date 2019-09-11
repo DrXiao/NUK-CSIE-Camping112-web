@@ -101,6 +101,14 @@ def staff_page():
     cookie_name = request.cookies.get('User')
     if request.method == 'POST':
         teamname = request.values['team_name']
+        if teamname == '青龍':
+            teamname = 'dragon'
+        elif teamname == '白虎':
+            teamname = 'tiger'
+        elif teamname == '朱雀':
+            teamname = 'phoenix'
+        elif teamname == '玄武':
+            teamname = 'tortoise'
         return render_template('Generator.html',team = teamname,score = (int)(request.values['team_score']))
         #team_give_score(teamname, cookie_name, (int)
         #               (request.values['team_score']))

@@ -31,6 +31,7 @@
 
       scanner.addListener('scan', function (content) {
         console.log(tokenRecv.tokenValidation(content));
+        document.getElementById('preview').style.visibility = "hidden";
         document.getElementById('QRcodeInfo').value = content;
         document.getElementById('Boolean').value = tokenRecv.tokenValidation(content);
         document.getElementById('QRscan').submit();

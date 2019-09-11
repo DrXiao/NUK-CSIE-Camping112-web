@@ -10,6 +10,7 @@ from Account import Member, login
 app = Flask(__name__)
 
 dict_member = sql.get_superviser_sql()
+dict_team = {'phoenix':'朱雀','tiger':'白虎','tortoise':'玄武','dragon':'青龍'}
 
 # 目前User的進入網站的資訊
 
@@ -65,10 +66,19 @@ def QRcode_scan():
         boolean = request.values['boolean']
         qrcode = request.values['QRcode']
         if boolean == 'true':
-            target = re.match('A[0-9]+',qrcode)
-            team = re.match('[a-z]{2,}',qrcode)
-            score = re.match('[0-9]+',qrcode)
-            print(target,team,score)
+            target = re.search(r'A[0-9]+',qrcode)
+            team_score = re.search(r'[a-z]+-?[0-9]+',qrcode)
+            team = re.search(r'[a-z]+',team_score.group())
+            score = re.search(r'-?[0-9]+',team_score.group())
+            team = dict_team[team.group()]
+            score = score.group()
+            if team != request.cookies.get('TeamName'):
+                return redirect(url_for('go_to_team'))
+            else:
+                team_give_score(team, dict_member[target.group()], (int)(score))
+                return redirect(url_for('go_to_team'))
+        else:
+            return 'QRcode 過期了啦!'
     return render_template('Reciver.html')
 
 
@@ -116,8 +126,6 @@ def staff_page():
             teamname = 'tortoise'
         return render_template('Generator.html', team=teamname, score=(int)(request.values['team_score']),
                                target=dict_member[cookie_name])
-        # team_give_score(teamname, cookie_name, (int)
-        #               (request.values['team_score']))
     if cookie_team.find('工作人員') != -1:
         authority = False
         Dragon, Dragon_score = sql.get_team_table_SQL('青龍')

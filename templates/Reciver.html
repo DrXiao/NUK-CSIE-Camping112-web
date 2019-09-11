@@ -1,49 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>QRcode scanner</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TimeEqToken - Reciver</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
   <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <link rel="stylesheet" href="{{url_for('static',filename = 'css/QRscan.css')}}">
 </head>
-<style>
-  body,
-  html {
-    padding: 0;
-    margin: 0;
-    font-family: 'Helvetica Neue', 'Calibri', Arial, sans-serif;
-    height: 100vh;
-  }
-
-  #app {
-    background: #263238;
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
-    height: 100vh;
-    position:absolute;
-    top:0px;
-  }
-
-  .preview-container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    overflow: hidden;
-    -moz-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    transform: scaleX(-1);
-    width:100vw;
-    height:70vh;
-  }
-</style>
 
 <body>
-    <div class="preview-container">
-      <video id="preview" style = "width:100vw;height:100vh;overflow:hidden"></video>
+  <div class="preview-container">
+    <video id="preview" style="width:100vw;height:100vh;overflow:hidden"></video>
     <!-- 詢問是否允許開啟相機後，會顯示在這個元素裡 -->
     <!-- ---------- -->
     <!-- 以下程式面 -->
@@ -56,12 +30,13 @@
       // Notice:這邊注意一定要用<video>的標籤才能使用，詳情請看他的github API的部分解釋。
 
       scanner.addListener('scan', function (content) {
-        console.log(content);
-        document.getElementById('QRcodeInfo').value = content
+        console.log(tokenRecv.tokenValidation(content));
+        document.getElementById('QRcodeInfo').value = content;
+        document.getElementById('Boolean').value = tokenRecv.tokenValidation(content);
         document.getElementById('QRscan').submit();
       });
       //開始偵聽掃描事件，若有偵聽到印出內容，並把form表單的 QRcodeInfo 的值設定為QRcode的內容，再把form表單提交。
-      
+
       Instascan.Camera.getCameras().then(function (cameras) {
         //取得設備的相機數目
         if (cameras.length > 0) {
@@ -86,11 +61,29 @@
     
     在上述的script標籤裡已經設定好，掃到QRcode之後，該input標籤會被自動設為QRcode的網址，並自動提交該表單
   -->
-  <div>
-    <form id='QRscan' action='/QRscan' method='POST'>
-      <input type='hidden' id='QRcodeInfo' value='' name='QRcode'>
-    </form>
-  </div>
+  <form action = "/QRscan" id = "QRscan" method = 'POST'>
+    <input type = "text" hidden id = "QRcodeInfo" name = "QRcode">
+    <input type = "text" hidden id = "Boolean" name = "boolean">
+  </form>
+</body>
+<script>
+  class tokenReceiver {
+    constructor(_countDown, _result) {
+      this.updatePeriod = 10000;
+      this.countDown = _countDown;
+      this.result = _result;
+    }
+    tokenValidation(msg) {
+      msg = msg.split(".");
+      let secret = Math.floor(+Date.now() / this.updatePeriod);
+      let hmac = CryptoJS.HmacSHA256(msg[0], `${secret}`);
+      hmac = CryptoJS.enc.Base64.stringify(hmac);
+      return msg[1] === hmac;
+    }
+    update() { }
+  }
+  let tokenRecv = new tokenReceiver();
+</script>
 </body>
 
 </html>

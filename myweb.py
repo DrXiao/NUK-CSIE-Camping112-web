@@ -55,16 +55,16 @@ def home():
 
 顯示一個QRcode scanner頁面給使用者
 
-QRscanner.html已設計好，當掃到QRcode時，會自動發出POST請求
-    此時網頁會回應該QRcode的網址
-
-這方面再請參閱 QRscanner.html 網頁檔案
 """
 @app.route('/QRscan', methods=['GET', 'POST'])
 def QRcode_scan():
     if request.method == 'POST':
-        return request.values['QRcode']
-    return render_template('QRscanner.html')
+       boolean = request.values['boolean']
+       qrcode = request.values['QRcode']
+       print(boolean,qrcode)
+       return qrcode
+    return render_template('Reciver.html')
+    
 
 
 # 在經歷過首頁登入之後，member會有一個資料成員 team ，由team判斷該帳號是哪一個小隊，並顯示小隊頁面
@@ -101,8 +101,9 @@ def staff_page():
     cookie_name = request.cookies.get('User')
     if request.method == 'POST':
         teamname = request.values['team_name']
-        team_give_score(teamname, cookie_name, (int)
-                        (request.values['team_score']))
+        return render_template('Generator.html',team = teamname,score = (int)(request.values['team_score']))
+        #team_give_score(teamname, cookie_name, (int)
+        #               (request.values['team_score']))
     if cookie_team.find('工作人員') != -1:
         authority = False;
         Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
@@ -119,14 +120,6 @@ def staff_page():
         return '不是工作人員'
 
 
-@app.route('/delcookie')
-def delete_cookie():
-    res = make_response(redirect(url_for('home')))
-    res.delete_cookie('TeamName')
-    res.delete_cookie('User')
-    return res
-
-
 @app.route('/record')
 def get_record():
     cookie_team = request.cookies.get('TeamName')
@@ -135,7 +128,14 @@ def get_record():
         mytrade = trade_record()
         return render_template('allrecord.html', list=mytrade.trade_list)
     else:
-        return '不是工作人員'
+        return '不是工作人員'    
+
+@app.route('/delcookie')
+def delete_cookie():
+    res = make_response(redirect(url_for('home')))
+    res.delete_cookie('TeamName')
+    res.delete_cookie('User')
+    return res
 
 
 # 當__name__ 等於 '__main__'時，運作該網站

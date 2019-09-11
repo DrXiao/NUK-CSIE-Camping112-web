@@ -5,7 +5,7 @@ import time
 def team_give_score(team,target,score):
     localtime = time.localtime(time.time()+8*3600)
     Teamname,Score = sql.get_team_table_SQL(team)
-    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute(' Update team SET score = %d Where teamname = \'%s\';'%(Score+score,Teamname))
     timestr = '%d/%d/%02d:%02d'%(localtime.tm_mon,localtime.tm_mday,localtime.tm_hour,localtime.tm_min)
@@ -16,7 +16,7 @@ def team_give_score(team,target,score):
 
 class trade_record:
     def __init__(self):
-        conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+        conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
         cur = conn.cursor()
         trade_list = []
         cur.execute(' SELECT * FROM trade ')
@@ -34,7 +34,7 @@ class trade_record:
 
 class team_record:
     def __init__(self,name):
-        conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+        conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
         cur = conn.cursor()
         trade_list = []
         cur.execute(' SELECT * FROM trade WHERE team = \'%s\' '%(name))

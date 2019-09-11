@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TimeEqToken - Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <style>
+      body,
+      #result {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5em;
+      }
+      h1 span {
+        display: inline-block;
+        width: 2em;
+        font-size: 1.5em;
+      }
+      #result span{
+          font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Token will be expired in: <span></span> sec</h1>
+    <div id="result">
+      <div class="qrcode"></div>
+      <span ></span>
+    </div>
+    <script>
+      class tokenGenerator {
+        constructor(_countDown, _result) {
+          this.token = "";
+          this.message = "{{team}}{{score}}";
+          this.updatePeriod = 10000;
+          this.countDown = _countDown;
+          this.result = _result;
+          this.lastgap = 0;
+
+          this.genNewToken();
+          setInterval(this.update.bind(this), 10);
+        }
+        genNewToken() {
+          let secret = Math.floor(+Date.now() / this.updatePeriod);
+          let serial = Math.floor(Math.random() * (1 << 30));
+          let hmac = CryptoJS.HmacSHA256(
+            `${this.message}#${serial}`,
+            `${secret}`
+          );
+          hmac = CryptoJS.enc.Base64.stringify(hmac);
+          this.token = `${this.message}#${serial}.${hmac}`;
+
+          this.result.children(".qrcode").text("");
+          this.result.children("span").text(this.token);
+          this.result.children(".qrcode").qrcode(this.token);
+        }
+        update() {
+          let gap =
+            this.updatePeriod -
+            Date.now() +
+            Math.floor(+Date.now() / this.updatePeriod) * this.updatePeriod;
+          $(this.countDown).text(`${(gap / 1000).toFixed(2)}`);
+          if (gap >= this.lastgap) {
+            this.genNewToken();
+          }
+          this.lastgap = gap;
+        }
+      }
+      let tokenGen = new tokenGenerator($("h1 span"), $("#result"));
+    </script>
+  </body>
+</html>

@@ -4,7 +4,7 @@ import psycopg2
 """
 SQL_method的所有函式，必定包含下面6行code，我分為前3行跟後3行
 
-conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
 cur = conn.cursor()
 cur.execute('')
 ---------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ conn.close()
 
 # print出所有小隊的資訊
 def print_team_table_SQL():
-    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute("SELECT * FROM Team")
     rows = []
@@ -40,7 +40,7 @@ def print_team_table_SQL():
 
 # 取得某個小隊的資訊，回傳二維陣列
 def get_team_table_SQL(team):
-    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute("SELECT * FROM team where teamname = \'%s\'"%(team))
     rows = []
@@ -53,7 +53,7 @@ def get_team_table_SQL(team):
 
 # print出所有成員的資訊
 def print_member_table_SQL():
-    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute("SELECT * FROM member")
     rows = []
@@ -66,7 +66,7 @@ def print_member_table_SQL():
 
 # 取得所有成員的資訊，回傳二維陣列
 def get_member_table_SQL():
-    conn = psycopg2.connect(database="d8ti03uqsns0a0", user="upsvubypqddslc", password="257462a430af3ef3323f2bfe71e0ae14bd5a97bcfed571564e47807fc00d2adf", host="ec2-54-243-193-59.compute-1.amazonaws.com", port="5432")
+    conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
     cur = conn.cursor()
     cur.execute("SELECT * FROM member")
     rows = []

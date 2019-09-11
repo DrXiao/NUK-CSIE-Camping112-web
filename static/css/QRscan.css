@@ -1,0 +1,34 @@
+body,
+  html {
+    padding: 0;
+    margin: 0;
+    font-family: 'Helvetica Neue', 'Calibri', Arial, sans-serif;
+    height: 100vh;
+  }
+
+  #app {
+    background: #263238;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    height: 100vh;
+    position:absolute;
+    top:0px;
+  }
+
+  .preview-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    width:100vw;
+    height:70vh;
+  }
+
+
+  

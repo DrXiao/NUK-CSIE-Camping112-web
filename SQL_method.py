@@ -76,6 +76,22 @@ def get_member_table_SQL():
     conn.close()
     return rows
 
+# 取得所有上級工作人員
+def get_superviser_sql():
+    conn = psycopg2.connect(database="d1kq7fanns12dc", user="lnvsdyjiuitchs", password="bd4d4f3614d2f215d67162bd62296fc387fcb3ad7cb2bf3891b3da1c876db4fb", host="ec2-50-19-254-63.compute-1.amazonaws.com", port="5432")
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM member where teamname = '上級工作人員'")
+    rows = []
+    rows = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    dict = {}
+    for i in range(len(rows)):
+        dict[rows[i][0]] = rows[i][1]
+        dict[rows[i][1]] = rows[i][0]
+    return dict
+    
 
 #你們可以把下面兩行的code執行一次，把註解符號拿掉，並按下F5執行，就可以得到資料庫建立的所有資訊了
 

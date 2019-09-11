@@ -2,11 +2,14 @@
 from flask import Flask, render_template, request, url_for, redirect, make_response
 from trade import team_give_score, trade_record, team_record
 import SQL_method as sql
+import re
 # 自定義的Account套件，匯入兩個類別、兩個函式、四個變數
 from Account import Member, login
 
 # app就是網站啦!
 app = Flask(__name__)
+
+dict_member = sql.get_superviser_sql()
 
 # 目前User的進入網站的資訊
 
@@ -59,12 +62,14 @@ def home():
 @app.route('/QRscan', methods=['GET', 'POST'])
 def QRcode_scan():
     if request.method == 'POST':
-       boolean = request.values['boolean']
-       qrcode = request.values['QRcode']
-       print(boolean,qrcode)
-       return qrcode
+        boolean = request.values['boolean']
+        qrcode = request.values['QRcode']
+        if boolean == 'true':
+            target = re.match('A[0-9]+',qrcode)
+            team = re.match('[a-z]{2,}',qrcode)
+            score = re.match('[0-9]+',qrcode)
+            print(target,team,score)
     return render_template('Reciver.html')
-    
 
 
 # 在經歷過首頁登入之後，member會有一個資料成員 team ，由team判斷該帳號是哪一個小隊，並顯示小隊頁面
@@ -109,11 +114,12 @@ def staff_page():
             teamname = 'phoenix'
         elif teamname == '玄武':
             teamname = 'tortoise'
-        return render_template('Generator.html',team = teamname,score = (int)(request.values['team_score']))
-        #team_give_score(teamname, cookie_name, (int)
+        return render_template('Generator.html', team=teamname, score=(int)(request.values['team_score']),
+                               target=dict_member[cookie_name])
+        # team_give_score(teamname, cookie_name, (int)
         #               (request.values['team_score']))
     if cookie_team.find('工作人員') != -1:
-        authority = False;
+        authority = False
         Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
         Phoenix, Phoenix_score = sql.get_team_table_SQL('朱雀')
         Tiger, Tiger_score = sql.get_team_table_SQL('白虎')
@@ -123,7 +129,7 @@ def staff_page():
         return render_template('staff.html', Dragon=Dragon, Dragon_score=Dragon_score,
                                Phoenix=Phoenix, Phoenix_score=Phoenix_score,
                                Tiger=Tiger, Tiger_score=Tiger_score,
-                               Tortoise=Tortoise, Tortoise_score=Tortoise_score,flag = authority)
+                               Tortoise=Tortoise, Tortoise_score=Tortoise_score, flag=authority)
     else:
         return '不是工作人員'
 
@@ -136,7 +142,8 @@ def get_record():
         mytrade = trade_record()
         return render_template('allrecord.html', list=mytrade.trade_list)
     else:
-        return '不是工作人員'    
+        return '不是工作人員'
+
 
 @app.route('/delcookie')
 def delete_cookie():
@@ -149,9 +156,10 @@ def delete_cookie():
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
     #app.debug = True
+    print(dict_member)
     app.run()
 
 
-# 修正項目 : 
+# 修正項目 :
 # 登入密碼 全部小寫
 # 一個小隊一個帳號

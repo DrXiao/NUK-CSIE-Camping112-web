@@ -66,28 +66,23 @@ def QRcode_scan():
         boolean = request.values['boolean']
         qrcode = request.values['QRcode']
         if boolean == 'true':
-            return redirect(url_for('QR_result',qrcode = qrcode))
+            target = re.search(r'A[0-9]+', qrcode)
+            team_score = re.search(r'[a-z]+-?[0-9]+', qrcode)
+            team = re.search(r'[a-z]+', team_score.group())
+            score = re.search(r'-?[0-9]+', team_score.group())
+            team = dict_team[team.group()]
+            score = score.group()
+            print(team, score, target)
+            if team != request.cookies.get('TeamName'):
+                return redirect(url_for('go_to_team'))
+            else:
+                team_give_score(
+                   team, dict_member[target.group()], (int)(score))
+                return redirect(url_for('go_to_team'))
         else:
             return 'QRcode 過期了啦!'
     else:
         return render_template('Reciver.html')
-
-
-@app.route('/QR_result/<qrcode>')
-def QR_result(qrcode):
-    target = re.search(r'A[0-9]+', qrcode)
-    team_score = re.search(r'[a-z]+-?[0-9]+', qrcode)
-    team = re.search(r'[a-z]+', team_score.group())
-    score = re.search(r'-?[0-9]+', team_score.group())
-    team = dict_team[team.group()]
-    score = score.group()
-    print(team,score,target)
-    if team != request.cookies.get('TeamName'):
-        return redirect(url_for('go_to_team'))
-    else:
-        team_give_score(
-            team, dict_member[target.group()], (int)(score))
-        return redirect(url_for('go_to_team'))
 
 
 # 在經歷過首頁登入之後，member會有一個資料成員 team ，由team判斷該帳號是哪一個小隊，並顯示小隊頁面

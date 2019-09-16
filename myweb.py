@@ -62,6 +62,10 @@ def home():
 """
 @app.route('/QRscan', methods=['GET', 'POST'])
 def QRcode_scan():
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home',message = 'Not_login'))
     if request.method == 'POST':
         boolean = request.values['boolean']
         qrcode = request.values['QRcode']
@@ -73,13 +77,13 @@ def QRcode_scan():
             team = dict_team[team.group()]
             score = score.group()
             if team != request.cookies.get('TeamName'):
-                return redirect(url_for('go_to_team'))
+                return redirect(url_for('go_to_team',message = 'Not_QRcode'))
             else:
                 team_give_score(
                    team, dict_member[target.group()], (int)(score))
                 return redirect(url_for('go_to_team'))
         else:
-            return 'QRcode 過期了啦!'
+            return redirect(url_for('go_to_team',message = 'QRcode_error'))
     else:
         return render_template('Reciver.html')
 
@@ -88,7 +92,9 @@ def QRcode_scan():
 @app.route('/team')
 def go_to_team():
     cookie_team = request.cookies.get('TeamName')
-
+    cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home',message = 'Not_login'))
     if cookie_team == '青龍':
         Dragon_trade = team_record('青龍')
         Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
@@ -108,14 +114,17 @@ def go_to_team():
     elif cookie_team.find('工作人員') != -1:
         return redirect(url_for('staff_page'))
     else:
-        print(cookie_team)
-        return '尚未登入!!'
+        #print(cookie_team)
+        pass
+        return redirect(url_for('home',message = 'Error'))
 
 
 @app.route('/staff', methods=['GET', 'POST'])
 def staff_page():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home',message = 'Not_login'))
     if request.method == 'POST':
         teamname = request.values['team_name']
         if teamname == '青龍':
@@ -141,26 +150,31 @@ def staff_page():
                                Tiger=Tiger, Tiger_score=Tiger_score,
                                Tortoise=Tortoise, Tortoise_score=Tortoise_score, flag=authority)
     else:
-        return '不是工作人員'
+        return redirect(url_for('go_to_team',message = 'Not_staff'))
 
 
 @app.route('/record')
 def get_record():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home',message = 'Not_login'))
     if cookie_team.find('工作人員') != -1:
         mytrade = trade_record()
         return render_template('allrecord.html', list=mytrade.trade_list)
     else:
-        return '不是工作人員'
+        return redirect(url_for('go_to_team',message = 'Not_staff'))
 
 
 @app.route('/delcookie')
 def delete_cookie():
-    res = make_response(redirect(url_for('home')))
-    res.delete_cookie('TeamName')
-    res.delete_cookie('User')
-    return res
+    if request.cookies.get('TeamName') != None:
+        res = make_response(redirect(url_for('home')))
+        res.delete_cookie('TeamName')
+        res.delete_cookie('User')
+        return res
+    else:
+        return redirect(url_for('home'))
 
 
 # 當__name__ 等於 '__main__'時，運作該網站

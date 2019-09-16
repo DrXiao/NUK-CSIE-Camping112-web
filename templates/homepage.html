@@ -15,6 +15,28 @@
         <input type="text" name="Account" placeholder="Username">
         <input type="password" name="Password" placeholder="Password">
         <input type="submit"  value="Login">
+        <h4 style = "color:red" id = "message"></h4>
     </form>
+    <script>
+    var url = location.href;
+    if(url.indexOf('?') != -1){
+        var arr1 = url.split('?');
+
+        var arr2 = arr1[1].split('&');
+
+        var arr3 = arr2[0].split('=')
+
+        var message = arr3[1];
+        if(message == "Not_login"){
+            message = "尚未登入";
+        }
+        else{
+            message = "未知錯誤";
+        }
+        document.getElementById('message').innerHTML = message;
+    }
+
+
+    </script>
 </body>
 </html>

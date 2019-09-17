@@ -35,8 +35,14 @@
     <h1>Token will be expired in: <span></span> sec</h1>
     <div id="result">
       <div class="qrcode"></div>
-      <span ></span>
+      <span hidden></span>
     </div>
+    <script>
+    function back(){
+      window.location.href = "{{url_for('staff_page')}}";
+    };
+    </script>
+    <input type = "button" value = "返回" onclick = "back()">
     <script>
       class tokenGenerator {
         constructor(_countDown, _result) {

@@ -81,7 +81,7 @@ def QRcode_scan():
             else:
                 team_give_score(
                    team, dict_member[target.group()], (int)(score))
-                return redirect(url_for('go_to_team'))
+                return redirect(url_for('go_to_team',message = 'Success'))
         else:
             return redirect(url_for('go_to_team',message = 'QRcode_error'))
     else:

@@ -75,7 +75,10 @@
             var arr3 = arr2[0].split('=')
     
             var message = arr3[1];
-            if(message == "QRcode_error"){
+            if(message == "Success"){
+                message = "加分成功啦!";
+            }
+            else if(message == "QRcode_error"){
                 message = "QRcode過期了啦!";
             }
             else if(message == "Not_QRcode"){

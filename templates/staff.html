@@ -21,18 +21,25 @@
                      var arr = score.match(pattern);
                      if(Array.isArray(arr)){
                             if(arr[0] == score){
-                                   document.getElementById('team_name').value = Team;
-                                   document.getElementById('team_score').value = score;
-                                   document.getElementById('team_get').submit();
+                                   alert(arr[0]);
+                                   if(arr[0] <= 10000 && arr[0] >= -10000){
+                                          document.getElementById('team_name').value = Team;
+                                          document.getElementById('team_score').value = score;
+                                          document.getElementById('team_get').submit();
+                                   }
+                                   else{
+                                          document.getElementById('Error').innerHTML = '分數請在 ±10000 之間!';
+                                          setTimeout("document.getElementById('Error').innerHTML = ''",5000);
+                                   }
                             }
                             else{
                                    document.getElementById('Error').innerHTML = '輸入錯誤!';
-                                   setTimeout("document.getElementById('Error').innerHTML = ''",3000);
+                                   setTimeout("document.getElementById('Error').innerHTML = ''",5000);
                             }
                      }
                      else{
                             document.getElementById('Error').innerHTML = '輸入錯誤!';
-                            setTimeout("document.getElementById('Error').innerHTML = ''",3000);
+                            setTimeout("document.getElementById('Error').innerHTML = ''",5000);
                      }
               }
        </script>
@@ -112,7 +119,7 @@
                      </div>
               </div>
               {%else%}
-              {%for i in range(15)%}
+              {%for i in range(13)%}
               <br/>
               {%endfor%}
               {%endif%}

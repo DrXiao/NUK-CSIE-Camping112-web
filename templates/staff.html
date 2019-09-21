@@ -8,18 +8,32 @@
        <link rel="stylesheet" href="/static/css/staff.css">
        <script type="text/javascript">
               function give_score(Team) {
+                     var pattern = /[-]?[0-9]+/;
                      var score = '';
                      if (Team == '青龍')
                             score = document.getElementById('aka').value;
-                     if (Team == '朱雀')
+                     else if (Team == '朱雀')
                             score = document.getElementById('shiro').value;
-                     if (Team == '白虎')
+                     else if (Team == '白虎')
                             score = document.getElementById('ao').value;
-                     if (Team == '玄武')
+                     else if (Team == '玄武')
                             score = document.getElementById('kuro').value;
-                     document.getElementById('team_name').value = Team;
-                     document.getElementById('team_score').value = score;
-                     document.getElementById('team_get').submit();
+                     var arr = score.match(pattern);
+                     if(Array.isArray(arr)){
+                            if(arr[0] == score){
+                                   document.getElementById('team_name').value = Team;
+                                   document.getElementById('team_score').value = score;
+                                   document.getElementById('team_get').submit();
+                            }
+                            else{
+                                   document.getElementById('Error').innerHTML = '輸入錯誤!';
+                                   setTimeout("document.getElementById('Error').innerHTML = ''",3000);
+                            }
+                     }
+                     else{
+                            document.getElementById('Error').innerHTML = '輸入錯誤!';
+                            setTimeout("document.getElementById('Error').innerHTML = ''",3000);
+                     }
               }
        </script>
 
@@ -73,6 +87,7 @@
               <div class="scores_submit" id="d2">
 
                      <h1>積分加減</h1>
+                     <h4 style = "color:red" id = "Error"></h4>
                      <div class="team green">
                             <span> 青龍</span><input type="text" placeholder="扣分請輸入負號" id="aka"><input type="submit"
                                    value="送出" onclick="give_score('青龍')">

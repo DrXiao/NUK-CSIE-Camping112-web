@@ -26,7 +26,7 @@ class trade_record:
         for i in range(len(trade_list)):
             dict1 = {'date':trade_list[i][0],'team':trade_list[i][1],'target':trade_list[i][2],'score':trade_list[i][3],'total_score' : trade_list[i][4]}
             self.trade_list.append(dict1)
-            if len(self.trade_list)>10:
+            if len(self.trade_list)>=20:
                 break
         conn.commit()
         cur.close()
@@ -44,7 +44,7 @@ class team_record:
         for i in range(len(trade_list)):
             dict1 = {'date':trade_list[i][0],'team':trade_list[i][1],'target':trade_list[i][2],'score':trade_list[i][3],'total_score':trade_list[i][4]}
             self.trade_list.append(dict1)
-            if len(self.trade_list)>10:
+            if len(self.trade_list)>=20:
                 break
         conn.commit()
         cur.close()

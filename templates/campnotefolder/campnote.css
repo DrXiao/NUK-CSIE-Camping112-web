@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+* {
+  
+    font-family: 'Noto Sans TC', sans-serif;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+.contain{
+    background:rgb(22, 22, 22);
+    margin:0; 
+    padding: 0;
+    height:auto;
+    
+}
+.contain2{
+    background:linear-gradient(rgb(22, 22, 22),rgb(109, 104, 104)); 
+    margin:0; 
+    padding: 0;
+    height: auto;
+    
+}
+.header{
+    position: fixed ;
+    background:rgba(39,39,39,1);
+    box-shadow: 2px 2px 8px #ccc;
+    margin: 0 0 10px;
+    width: 100%;
+    height:60px;
+    text-align: center;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    
+    
+
+
+}
+
+.button{
+    width: auto;
+    height: auto;
+    border-radius: 10000px;
+    color: #E7C583;
+    background-color: transparent;
+    margin:0 10px;
+    padding:5px 10px;
+    font-size: 1rem;
+    font-weight: normal;
+    text-decoration: none;
+    border:1px solid #fff;
+    box-shadow: 1px 1px 10px #aaa inset;
+    border-radius: 10px;
+
+
+}
+.button_group{
+    position: relative;
+    top:15px;
+    widows: 100%;
+    
+    
+    
+}
+.return{
+    position: absolute;
+    left:92% ;
+    top:-5px;
+
+}
+.gif_group{
+position: relative;
+}
+.gif{
+display: block;
+position: relative;
+margin: auto;
+padding: 70px;
+width: 70%;
+height: auto;
+
+
+}
+.iframe{
+    width:"100%" ;
+    height:"90%";
+}

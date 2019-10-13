@@ -49,7 +49,7 @@ def home():
             res.set_cookie('User', the_member.Name)
             return res
         else:
-            return member
+            return redirect(url_for('home',message = member))
 
     return render_template('homepage.html')
 

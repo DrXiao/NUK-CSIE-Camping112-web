@@ -28,10 +28,19 @@
 
         var message = arr3[1];
         if(message == "Not_login"){
-            message = "尚未登入";
+            message = "尚未登入!";
+        }
+        else if(message == "Empty"){
+            message = "帳號或密碼為空!";
+        }
+        else if(message == "Password_error"){
+            message = "密碼錯誤!";
+        }
+        else if(message == "No_account"){
+            message = "帳號錯誤!";
         }
         else{
-            message = "未知錯誤";
+            message = "帳號或密碼錯誤!";
         }
         document.getElementById('message').innerHTML = message;
         setTimeout("document.getElementById('message').innerHTML = ''",3000);

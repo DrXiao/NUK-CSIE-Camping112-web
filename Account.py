@@ -26,7 +26,7 @@ login函式
 def login(account,password):
     member = []
     if account == None or password == None:
-        return '帳號或密碼為空',False
+        return 'Empty',False
     member = sql.get_member_table_SQL()
     for i in range(len(member)):
         if member[i][1] == account or member[i][1] == str.title(account):
@@ -34,8 +34,8 @@ def login(account,password):
                 the_member = Member(member[i][0],member[i][1],member[i][2],member[i][3])
                 return the_member,True
             else:
-                return '密碼錯誤!',False
-    return '沒有註冊帳號!',False
+                return 'Password_error',False
+    return 'No_account',False
 
 
 #sql.create_team_table_SQL()

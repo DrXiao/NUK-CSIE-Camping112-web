@@ -115,7 +115,6 @@ def go_to_team():
         return redirect(url_for('staff_page'))
     else:
         #print(cookie_team)
-        pass
         return redirect(url_for('home',message = 'Error'))
 
 

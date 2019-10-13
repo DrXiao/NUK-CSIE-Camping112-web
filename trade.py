@@ -9,7 +9,7 @@ def team_give_score(team,target,score):
     cur = conn.cursor()
     cur.execute(' Update team SET score = %d Where teamname = \'%s\';'%(Score+score,Teamname))
     timestr = '%d/%d/%02d:%02d'%(localtime.tm_mon,localtime.tm_mday,localtime.tm_hour,localtime.tm_min)
-    cur.execute('insert into trade(time,team,target,amount)values(\'%s\',\'%s\',\'%s\',%d)'%(timestr,Teamname,target,score,Score+score))
+    cur.execute('insert into trade(time,team,target,amount,total_score)values(\'%s\',\'%s\',\'%s\',%d,%d)'%(timestr,Teamname,target,score,Score+score))
     conn.commit()
     cur.close()
     conn.close()

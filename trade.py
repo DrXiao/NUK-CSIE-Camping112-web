@@ -9,7 +9,7 @@ def team_give_score(team,target,score):
     cur = conn.cursor()
     cur.execute(' Update team SET score = %d Where teamname = \'%s\';'%(Score+score,Teamname))
     timestr = '%d/%d/%02d:%02d'%(localtime.tm_mon,localtime.tm_mday,localtime.tm_hour,localtime.tm_min)
-    cur.execute('insert into trade(time,team,target,amount)values(\'%s\',\'%s\',\'%s\',%d)'%(timestr,Teamname,target,score))
+    cur.execute('insert into trade(time,team,target,amount)values(\'%s\',\'%s\',\'%s\',%d)'%(timestr,Teamname,target,score,Score+score))
     conn.commit()
     cur.close()
     conn.close()
@@ -24,7 +24,7 @@ class trade_record:
         trade_list.reverse()
         self.trade_list = []
         for i in range(len(trade_list)):
-            dict1 = {'date':trade_list[i][0],'team':trade_list[i][1],'target':trade_list[i][2],'score':trade_list[i][3]}
+            dict1 = {'date':trade_list[i][0],'team':trade_list[i][1],'target':trade_list[i][2],'score':trade_list[i][3],'total_score' : trade_list[i][4]}
             self.trade_list.append(dict1)
             if len(self.trade_list)>10:
                 break
@@ -42,7 +42,7 @@ class team_record:
         trade_list.reverse()
         self.trade_list = []
         for i in range(len(trade_list)):
-            dict1 = {'date':trade_list[i][0],'team':trade_list[i][1],'target':trade_list[i][2],'score':trade_list[i][3]}
+            dict1 = {'date':trade_list[i][0],'team':trade_list[i][1],'target':trade_list[i][2],'score':trade_list[i][3],'total_score':trade_list[i][4]}
             self.trade_list.append(dict1)
             if len(self.trade_list)>10:
                 break

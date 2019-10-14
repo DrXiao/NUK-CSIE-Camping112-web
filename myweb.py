@@ -209,7 +209,7 @@ def delete_cookie():
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run()
 
 

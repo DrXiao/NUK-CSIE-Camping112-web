@@ -19,26 +19,26 @@
                      else if (Team == '玄武')
                             score = document.getElementById('kuro').value;
                      var arr = score.match(pattern);
-                     if(Array.isArray(arr)){
-                            if(arr[0] == score){
-                                   if(arr[0] <= 10000 && arr[0] >= -10000){
+                     if (Array.isArray(arr)) {
+                            if (arr[0] == score) {
+                                   if (arr[0] <= 10000 && arr[0] >= -10000) {
                                           document.getElementById('team_name').value = Team;
                                           document.getElementById('team_score').value = score;
                                           document.getElementById('team_get').submit();
                                    }
-                                   else{
+                                   else {
                                           document.getElementById('Error').innerHTML = '分數請在 ±10000 之間!';
-                                          setTimeout("document.getElementById('Error').innerHTML = ''",5000);
+                                          setTimeout("document.getElementById('Error').innerHTML = ''", 5000);
                                    }
                             }
-                            else{
+                            else {
                                    document.getElementById('Error').innerHTML = '輸入錯誤!';
-                                   setTimeout("document.getElementById('Error').innerHTML = ''",5000);
+                                   setTimeout("document.getElementById('Error').innerHTML = ''", 5000);
                             }
                      }
-                     else{
+                     else {
                             document.getElementById('Error').innerHTML = '輸入錯誤!';
-                            setTimeout("document.getElementById('Error').innerHTML = ''",5000);
+                            setTimeout("document.getElementById('Error').innerHTML = ''", 5000);
                      }
               }
        </script>
@@ -87,13 +87,15 @@
 
 
               </div>
-
+              <div class="button_group" style="margin:0px auto;text-align:center">
+                     <a href="{{url_for('get_note')}}" class="button">宿營手冊</a>
+              </div>
 
               {%if flag == true%}
               <div class="scores_submit" id="d2">
 
                      <h1>積分加減</h1>
-                     <h4 style = "color:red" id = "Error"></h4>
+                     <h4 style="color:red" id="Error"></h4>
                      <div class="team green">
                             <span> 青龍</span><input type="text" placeholder="扣分請輸入負號" id="aka"><input type="submit"
                                    value="送出" onclick="give_score('青龍')">
@@ -119,7 +121,7 @@
               </div>
               {%else%}
               {%for i in range(13)%}
-              <br/>
+              <br />
               {%endfor%}
               {%endif%}
 

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<!-- 返回那邊接看一下 -->
+<html>
+
+<head>
+    <meta charset="UTF-8" name="notebook" content="width = device-width">
+    <title>campnote</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/campnote.css')}}">
+
+</head>
+
+<body class="contain">
+    <div class="header">
+        <div class="button_group">
+            <a href="{{url_for('get_schedule')}}" target="frame1" class="button">宿營流程</a>
+            <a href="{{url_for('get_teammate')}}" target="frame1" class="button">隊伍分配</a>
+            <a href="{{url_for('get_roommate')}}" target="frame1" class="button">房間分配</a>
+            <a href="{{url_for('home')}}" class="return button">返回</a> <!-- 接首頁喔 -->
+
+        </div>
+    </div>
+    <div>
+        <iframe src = "{{url_for('get_schedule')}}" name="frame1" id="frame1" frameborder="0" scrolling="no" width="100%" ></iframe>
+    </div>
+
+</html>

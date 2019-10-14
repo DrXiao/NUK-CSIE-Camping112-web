@@ -1,9 +1,8 @@
-# flask套件匯入類別、方法
 from flask import Flask, render_template, request, url_for, redirect, make_response
 from trade import team_give_score, trade_record, team_record
 import SQL_method as sql
 import re
-# 自定義的Account套件，匯入兩個類別、兩個函式、四個變數
+import os
 from Account import Member, login
 
 # app就是網站啦!
@@ -11,8 +10,6 @@ app = Flask(__name__)
 
 dict_member = sql.get_superviser_sql()
 dict_team = {'phoenix': '朱雀', 'tiger': '白虎', 'tortoise': '玄武', 'dragon': '青龍'}
-
-# 目前User的進入網站的資訊
 
 
 # 裝飾器，app.route()，決定一個「路由」要做什麼事情
@@ -49,7 +46,7 @@ def home():
             res.set_cookie('User', the_member.Name)
             return res
         else:
-            return redirect(url_for('home',message = member))
+            return redirect(url_for('home', message=member))
 
     return render_template('homepage.html')
 
@@ -65,7 +62,7 @@ def QRcode_scan():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
     if cookie_team == None or cookie_team == None:
-        return redirect(url_for('home',message = 'Not_login'))
+        return redirect(url_for('home', message='Not_login'))
     if request.method == 'POST':
         boolean = request.values['boolean']
         qrcode = request.values['QRcode']
@@ -77,13 +74,13 @@ def QRcode_scan():
             team = dict_team[team.group()]
             score = score.group()
             if team != request.cookies.get('TeamName'):
-                return redirect(url_for('go_to_team',message = 'Not_QRcode'))
+                return redirect(url_for('go_to_team', message='Not_QRcode'))
             else:
                 team_give_score(
-                   team, dict_member[target.group()], (int)(score))
-                return redirect(url_for('go_to_team',message = 'Success'))
+                    team, dict_member[target.group()], (int)(score))
+                return redirect(url_for('go_to_team', message='Success'))
         else:
-            return redirect(url_for('go_to_team',message = 'QRcode_error'))
+            return redirect(url_for('go_to_team', message='QRcode_error'))
     else:
         return render_template('Reciver.html')
 
@@ -94,7 +91,7 @@ def go_to_team():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
     if cookie_team == None or cookie_team == None:
-        return redirect(url_for('home',message = 'Not_login'))
+        return redirect(url_for('home', message='Not_login'))
     if cookie_team == '青龍':
         Dragon_trade = team_record('青龍')
         Dragon, Dragon_score = sql.get_team_table_SQL('青龍')
@@ -103,19 +100,20 @@ def go_to_team():
         Tiger_trade = team_record('白虎')
         Tiger, Tiger_score = sql.get_team_table_SQL('白虎')
         return render_template('team_white.html', list=Tiger_trade.trade_list, score=Tiger_score)
-    elif cookie_team == '朱雀':
-        Phoenix_trade = team_record('朱雀')
-        Phoenix, Phoenix_score = sql.get_team_table_SQL('朱雀')
-        return render_template('team_red.html', list=Phoenix_trade.trade_list, score=Phoenix_score)
     elif cookie_team == '玄武':
         Tortoise_trade = team_record('玄武')
         Tortoise, Tortoise_score = sql.get_team_table_SQL('玄武')
         return render_template('team_black.html', list=Tortoise_trade.trade_list, score=Tortoise_score)
+    elif cookie_team == '朱雀':
+        Phoenix_trade = team_record('朱雀')
+        Phoenix, Phoenix_score = sql.get_team_table_SQL('朱雀')
+        return render_template('team_red.html', list=Phoenix_trade.trade_list, score=Phoenix_score)
+
     elif cookie_team.find('工作人員') != -1:
         return redirect(url_for('staff_page'))
     else:
-        #print(cookie_team)
-        return redirect(url_for('home',message = 'Error'))
+        # print(cookie_team)
+        return redirect(url_for('home', message='Error'))
 
 
 @app.route('/staff', methods=['GET', 'POST'])
@@ -123,7 +121,7 @@ def staff_page():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
     if cookie_team == None or cookie_team == None:
-        return redirect(url_for('home',message = 'Not_login'))
+        return redirect(url_for('home', message='Not_login'))
     if request.method == 'POST':
         teamname = request.values['team_name']
         if teamname == '青龍':
@@ -149,7 +147,7 @@ def staff_page():
                                Tiger=Tiger, Tiger_score=Tiger_score,
                                Tortoise=Tortoise, Tortoise_score=Tortoise_score, flag=authority)
     else:
-        return redirect(url_for('go_to_team',message = 'Not_staff'))
+        return redirect(url_for('go_to_team', message='Not_staff'))
 
 
 @app.route('/record')
@@ -157,12 +155,45 @@ def get_record():
     cookie_team = request.cookies.get('TeamName')
     cookie_name = request.cookies.get('User')
     if cookie_team == None or cookie_team == None:
-        return redirect(url_for('home',message = 'Not_login'))
+        return redirect(url_for('home', message='Not_login'))
     if cookie_team.find('工作人員') != -1:
         mytrade = trade_record()
         return render_template('allrecord.html', list=mytrade.trade_list)
     else:
-        return redirect(url_for('go_to_team',message = 'Not_staff'))
+        return redirect(url_for('go_to_team', message='Not_staff'))
+
+
+@app.route('/note')
+def get_note():
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home', message='Not_login'))
+    return render_template('campnote.html')
+
+@app.route('/note/roommate')
+def get_roommate():
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home', message='Not_login'))
+    return render_template('roommate.html')
+
+@app.route('/note/schedule')
+def get_schedule():
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home', message='Not_login'))
+    return render_template('schedule.html')
+
+@app.route('/note/teammate')
+def get_teammate():
+    cookie_team = request.cookies.get('TeamName')
+    cookie_name = request.cookies.get('User')
+    if cookie_team == None or cookie_team == None:
+        return redirect(url_for('home', message='Not_login'))
+    return render_template('teammate.html')
 
 
 @app.route('/delcookie')
@@ -178,7 +209,7 @@ def delete_cookie():
 
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
-    # app.debug = True
+    app.debug = True
     app.run()
 
 

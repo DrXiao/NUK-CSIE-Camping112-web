@@ -32,7 +32,7 @@
             </label>
             <a class="black" href="{{url_for('delete_cookie')}}">登出</a>
             <a class="black" href="{{url_for('QRcode_scan')}}">打開相機</a>
-
+            <a class="black" href="{{url_for('get_note')}}">宿營手冊</a>
         </ul>
     </div>
     <div class="container">
@@ -65,7 +65,7 @@
             </table>
         </div>
     </div>
-    <script>
+   <script>
         var url = location.href;
         if(url.indexOf('?') != -1){
             var arr1 = url.split('?');

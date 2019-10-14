@@ -26,8 +26,6 @@ body{
 }
 .header{
     position: fixed ;
-   
-    /* background-color: rgb(200, 241, 253); */
     background:rgba(39,39,39,1);
     box-shadow: 2px 2px 8px #ccc;
     margin: 0 0 10px;
@@ -37,7 +35,7 @@ body{
     z-index: 2;
     top: 0;
     right: 0;
-    
+    /* background-color: rgb(200, 241, 253); */
     
 
 

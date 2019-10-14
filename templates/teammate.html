@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" name="notebook" content="width = device-width">
     <title>teammate</title>
-    <link rel="stylesheet" href="campnote.css">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/campnote.css')}}">
     <script>　 　　　
         function resize() {
             parent.document.getElementById("frame1").height = document.body.scrollHeight;  //將子頁面高度傳到父頁面框架　　　　　
@@ -15,7 +15,7 @@
 <body class="contain" onload="resize();">
     <div>
         <div class="gif_group" onload="resize();">
-            <image src="teammate.gif" id="schedule" class="gif">
+            <img src="{{url_for('static',filename = 'imgs/teammate.jpg')}}" id="schedule" class="gif">
         </div>
     </div>
 

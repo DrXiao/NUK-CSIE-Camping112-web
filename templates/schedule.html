@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" name="notebook" content="width = device-width">
     <title>campnote</title>
-    <link rel="stylesheet" href="campnote.css">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/campnote.css')}}">
     <script>　 　　　
         function resize()
         {　 　　　　
@@ -17,7 +17,7 @@
 <body class="contain2" onload="resize();">
     <div>
         <div class="gif_group">
-            <image src="schedule.gif" id="schedule" class="gif">
+            <img src="{{url_for('static',filename = 'imgs/schedule.jpg')}}" id="schedule" class="gif">
         </div>
     </div>
 

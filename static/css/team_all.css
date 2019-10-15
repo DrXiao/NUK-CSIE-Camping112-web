@@ -127,6 +127,7 @@ h2 {
 
 .recent_record {
     padding: 20px 0;
+    overflow:scroll;
 }
 
 .recent_record h1 {

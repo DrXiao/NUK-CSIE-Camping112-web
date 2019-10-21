@@ -1,32 +1,57 @@
+
+# 從第三方模組 flask, 匯入 Flask、make_response、request 類別 ， url_for、 redirect 函數
 from flask import Flask, render_template, request, url_for, redirect, make_response
+
+"""
+~翻譯時間~
+Flask 類別 : 可以建構一個網站實例
+render_template 函數 : 可以回應一個 html 網頁給client端
+url_for 函數 : 可以利用函數名稱，引導到某一個路由
+request 類別 : 
+
+
+"""
+
+# 從自定義模組 trade,匯入相關函數
 from trade import team_give_score, trade_record, team_record
+
+# 匯入自定義模組 SQL_method ，並簡寫為 sql
 import SQL_method as sql
+
+# 匯入模組 re -->模組有關於 Regular Expression (正規表達式) 的相關函數
 import re
+
+# 匯入模組 os --> 我沒用到拉ㄏ，忘記刪掉惹
 import os
+
+# 從自定義模組 Account,匯入 Member 類別 、 login 函數
 from Account import Member, login
 
-# app就是網站啦!
+# app 是 Flask 的一個實例，app就是網站啦!
 app = Flask(__name__)
+
 
 dict_member = sql.get_superviser_sql()
 dict_team = {'phoenix': '朱雀', 'tiger': '白虎', 'tortoise': '玄武', 'dragon': '青龍'}
 
 
-# 裝飾器，app.route()，決定一個「路由」要做什麼事情
+# 裝飾器 decorator，app.route()，決定一個「路由」要回應的網頁
 """
 
-'/' 路由
+'/' 路由，顯示首頁，即登入頁面
 
-顯示首頁，即登入頁面
+先檢查自身電腦本身有沒有相關 cookie
+    若有，就引導到另一個網頁(即 小隊頁面 or 工作人員頁面)
 
-若使用者發出 POST 請求，表示使用者請求登入
-    login函式判斷前端送出的 帳號、密碼
-    回傳兩個變數給member、flag
-        flag若為True，表示登入成功，那 member 將會是 Member 類別的變數
-            把the_member變數，更新為該使用者的帳號密碼
-            並把使用者的頁面，重新導向到 'go_to_team'函式的路由(即 '/team' 路由)
-        否則，member將會是一個字串
-            網頁會回應該字串member的訊息
+如果client發出 POST 請求，即該client嘗試登入，利用login函數來判斷是否登入成功
+    flag 將從 login 的回傳值，得到 True or False 值
+        如果 flag == True，表示有該帳號、密碼也對，就登入成功
+        res 是 make_response 的實例，利用 redirect(url_for()) 來建構
+        利用 res 物件，在client端上留下 cookie (保留兩個資訊 -- 該帳號的隊伍名稱、該帳號的使用者名字)
+
+
+
+
 """
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -207,12 +232,9 @@ def delete_cookie():
         return redirect(url_for('home'))
 
 
+
+
 # 當__name__ 等於 '__main__'時，運作該網站
 if __name__ == '__main__':
     #app.debug = True
     app.run()
-
-
-# 修正項目 :
-# 登入密碼 全部小寫
-# 一個小隊一個帳號
